@@ -1,0 +1,95 @@
+<html>
+    <head>
+        <title>Hub</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <style>
+            @media only screen and (max-width:400px) {
+                img {display: none;}
+                small {display: none;}
+                iframe {max-width: 100%;}
+                p {font-size: small;}
+                h3 {font-size: small;}
+                menu {font-size: small;}
+            }
+            video {
+                position: fixed;
+                right: 0;
+                top: 0;
+                left: 0;
+                bottom: 0;
+                width: 100%;
+                height: auto;
+            }
+            p {
+                top: 12%;
+                left: 30%;
+                position: absolute;
+                color: #fcfcfc;
+                font-family: Arial;
+                font-size: xxx-large;
+            }
+            h3 {
+                top: 25%;
+                left: 29%;
+                position: absolute;
+                color: #fcfcfc;
+                font-family: Arial;
+                font-size: xx-large;
+            }
+            menu {
+                top: 15%;
+                right: 10%;
+                position: absolute;
+                color: #fcfcfc;
+                font-family: Arial;
+                font-size: xx-large;
+            }
+            a {
+                text-decoration: none;
+                color: #fcfcfc;
+            }
+        </style>
+    </head>
+    <body>
+        <video loop autoplay muted>
+            <source src="video/backgrounds.mp4" type="video/mp4">
+            
+        </video>
+        
+        <main class="container">
+            <p>Rayan Suberu</p>
+            <div class="row">
+                <div class="col-lg-5" >
+                    
+                    <menu><ul class="fa-ul">
+                        <!-- found syntax for icons on https://www.w3schools.com/icons/fontawesome_icons_intro.asp -->
+                        <li><i class="fa-li fa fa-check-square"></i><a href="assignment1.html"> <i>Home</i> </a></li>
+                    </ul></menu>
+                        
+                </div>
+                <!-- <p><a href="https://danzalah.github.io/">Back to Home</a></p> -->
+                <div class="col-lg-3" >
+                    <menu><ul class="fa-ul">
+                        <li><i class="fa-li fa fa-spinner fa-spin"></i>Hobbies</li>
+                    </ul></menu>
+                </div>
+                <div class="col-lg-3" >
+                    <menu><ul class="fa-ul">
+                        <li><i class="fa-li fa fa-square"></i><a href="resume.html"> <i>Resume</i> </a></li>
+                    </ul></menu>
+                </div>
+                <h3>“Tell me and I forget. Teach me and I remember.<br> Involve me and I learn”</h3>
+                </div>
+            </main>
+
+            <script>
+                console.log("hi")
+                function moveup(){
+                   console.log("hi") 
+                }
+                document.addEventListener("scroll",moveup);
+            </script>
+    </body>
+</html>
