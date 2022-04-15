@@ -17,18 +17,18 @@ function success() {
             <td> {row.id}</td>
             <td> {row.name}</td>
             <td> {row.author}</td>
-            <td> {row.cooktime}</td>
-            <td> {row.preptime}</td>
-            <td> {row.totaltime}</td>
-            <td> {row.published_date}</td>
+            <td> {row.cook_time}</td>
+            <td> {row.prep_time}</td>
+            <td> {row.total_time}</td>
+            <td> {row.date_published}</td>
             <td> {row.description}</td>
             <td> {row.images}</td>
-            <td> {row.ingr_quant}</td>
-            <td> {row.ingr_parts}</td>
-            <td> {row.aggr_rating}</td>
-            <td> {row.reviewcount}</td>
+            <td> {row.ing_portion}</td>
+            <td> {row.ingredients}</td>
+            <td> {row.rating}</td>
+            <td> {row.rating_count}</td>
             <td> {row.servings}</td>
-            <td> {row.recipe_instr}</td>
+            <td> {row.instructions}</td>
         </tr>
     );
     console.log(rows);
