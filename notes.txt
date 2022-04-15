@@ -1,0 +1,18 @@
+create table recipes ("id" serial primary key, name text, author text, cook_time text, prep_time text, total_time text, date_published date, description text, images text[], ing_portion text[], ingredients text[], rating float8, rating_count int, servings int, instructions text[]);
+15 headers including primary key
+
+            <td> {row.id}</td>
+            <td> {row.name}</td>
+            <td> {row.author}</td>
+            <td> {row.cooktime}</td>
+            <td> {row.preptime}</td>
+            <td> {row.totaltime}</td>
+            <td> {row.published_date}</td>
+            <td> {row.description}</td>
+            <td> {row.images}</td>
+            <td> {row.ingr_quant}</td>
+            <td> {row.ingr_parts}</td>
+            <td> {row.aggr_rating}</td>
+            <td> {row.reviewcount}</td>
+            <td> {row.servings}</td>
+            <td> {row.recipe_instr}</td>
