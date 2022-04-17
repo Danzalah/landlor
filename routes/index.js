@@ -37,15 +37,8 @@ router.get('/recipesOut', function(req, res, next) {
   client.query('SELECT * FROM recipes', function(err, result){
     if (err) {next(err);}
     res.json(result.rows);
-    console.log(result.rows);
+    // console.log(result.rows);
   });
 });
-
-// router.get('/madlibs', function(req, res) {
-//   res.sendFile(path.join(__dirname,'..','public','madlibs.html'));
-// });
-// router.post('/madlibs', function(req, res) {
-//   res.json(req.body);
-// });
 
 module.exports = router;
