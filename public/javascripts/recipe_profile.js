@@ -19,14 +19,40 @@ function success() {
     let recipe = data[query - 1]     // -1 since we start our keys at 1
     console.log(recipe)
 
-    var list = []
+    // https://dev.to/duomly/how-to-use-loop-in-react-js-ael
+    var instructions = []
     for (const [i, instruct] of recipe.instructions.entries()) {
-        list.push(<li>{instruct}</li>)
+        instructions.push(<li>{instruct}</li>)
     }
+
+    var ingredients = []
+    for (const [i, instruct] of recipe.ingredients.entries()) {
+        ingredients.push(<li>{instruct}</li>)
+    }
+
+    var portions = []
+    for (const [i, instruct] of recipe.ing_portion.entries()) {
+        portions.push(<li>{instruct}</li>)
+    }
+
+    // TODO: make a slide show from array of images
+    var img = ""
+    if (recipe.images[0] == "NA"){
+        img = ""
+    }
+    else{
+        img = recipe.images[0]
+    }
+    console.log(img)
 
     let element = (
         <div>
             <h2>{recipe.name}</h2>
+            <p>published date: {recipe.date_published} by {recipe.author}</p>
+            <p>
+                ratings: {recipe.rating} &emsp;
+                total ratings: {recipe.rating_count}
+            </p>
             <p>
                 prep time:  {recipe.prep_time} &emsp;
                 cook time:  {recipe.cook_time} &emsp;
@@ -34,8 +60,17 @@ function success() {
             </p>
             <p>{recipe.description}</p>
 
+            <img src={img}/>
+
+            <h3>Ingredients</h3>
+            <ol>{ingredients}</ol>
+
+            <h3>Portions</h3>
+            <ol>{portions}</ol>
+
             <h3>Instructions</h3>
-            <ol>{list}</ol>
+            <ol>{instructions}</ol>
+            
 
         </div>
     );
