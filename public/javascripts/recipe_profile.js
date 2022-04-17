@@ -35,6 +35,8 @@ function success() {
         portions.push(<li>{instruct}</li>)
     }
 
+    var date = recipe.date_published.substring(0, 10)
+
     // TODO: make a slide show from array of images
     var img = ""
     if (recipe.images[0] == "NA"){
@@ -48,7 +50,7 @@ function success() {
     let element = (
         <div>
             <h2>{recipe.name}</h2>
-            <p>published date: {recipe.date_published} by {recipe.author}</p>
+            <p>published date: {date} by {recipe.author}</p>
             <p>
                 ratings: {recipe.rating} &emsp;
                 total ratings: {recipe.rating_count}
