@@ -35,6 +35,8 @@ function success() {
         portions.push(<li>{instruct}</li>)
     }
 
+    var test = "test";
+
     var date = recipe.date_published.substring(0, 10)
 
     // TODO: make a slide show from array of images
@@ -49,6 +51,7 @@ function success() {
 
     let element = (
         <div>
+            <h2>{test}</h2>
             <h2>{recipe.name}</h2>
             <p>published date: {date} by {recipe.author}</p>
             <p>
