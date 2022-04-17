@@ -35,23 +35,18 @@ function success() {
         portions.push(<li>{instruct}</li>)
     }
 
-    var test = "test";
-
     var date = recipe.date_published.substring(0, 10)
 
     // TODO: make a slide show from array of images
     var img = ""
-    if (recipe.images[0] == "NA"){
-        img = ""
-    }
-    else{
+    if (recipe.images[0] != "NA"){
         img = recipe.images[0]
-    }
+    }   
+
     console.log(img)
 
     let element = (
         <div>
-            <h2>{test}</h2>
             <h2>{recipe.name}</h2>
             <p>published date: {date} by {recipe.author}</p>
             <p>
@@ -63,6 +58,7 @@ function success() {
                 cook time:  {recipe.cook_time} &emsp;
                 total time: {recipe.total_time}
             </p>
+            <p>Servings: {recipe.servings}</p>
             <p>{recipe.description}</p>
 
             <img src={img}/>
