@@ -39,39 +39,60 @@ function success() {
 
     // TODO: make a slide show from array of images
     var img = ""
-    if (recipe.images[0] != "NA"){
+    if (recipe.images[0] != "NA") {
         img = recipe.images[0]
-    }   
+    }
 
     console.log(img)
 
     let element = (
-        <div>
-            <h2>{recipe.name}</h2>
-            <p>published date: {date} by {recipe.author}</p>
-            <p>
-                ratings: {recipe.rating} &emsp;
-                total ratings: {recipe.rating_count}
-            </p>
-            <p>
-                prep time:  {recipe.prep_time} &emsp;
-                cook time:  {recipe.cook_time} &emsp;
-                total time: {recipe.total_time}
-            </p>
-            <p>Servings: {recipe.servings}</p>
-            <p>{recipe.description}</p>
 
-            <img src={img}/>
+        <div class="grid-block">
 
-            <h3>Ingredients</h3>
-            <ol>{ingredients}</ol>
+            <div class="grid-container">
 
-            <h3>Portions</h3>
-            <ol>{portions}</ol>
+                <div class="ingredients">
+                    <h3>Ingredients</h3>
+                    <ol>{ingredients}</ol>
+                </div>
 
-            <h3>Instructions</h3>
-            <ol>{instructions}</ol>
-            
+                <div class="portions">
+                    <h3>Portions</h3>
+                    <ol>{portions}</ol>
+                </div>
+
+                <div class="instructions">
+                    <h3>Instructions</h3>
+                    <ol>{instructions}</ol>
+                </div>
+
+                <div class="details">
+                    <div>   {/* recipe info */}
+                        <h2 id="title">{recipe.name}</h2>
+                        <p>published date: {date} by {recipe.author}</p>
+                        <p>
+                            ratings: {recipe.rating} &emsp;
+                            total ratings: {recipe.rating_count}
+                        </p>
+                        <p>
+                            prep time:  {recipe.prep_time} &emsp;
+                            cook time:  {recipe.cook_time} &emsp;
+                            total time: {recipe.total_time}
+                        </p>
+                        <p>Servings: {recipe.servings}</p>
+                    </div>
+                </div>
+
+                <div class="description">
+                    <h3>Description</h3>
+                    <p>{recipe.description}</p>
+                </div>
+
+                <div class="image">
+                    <img src={img} />
+                </div>
+
+            </div>
 
         </div>
     );

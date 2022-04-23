@@ -1,22 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Recipe</title>
 
     <link rel="stylesheet" href="/stylesheets/style.css">
+    <link rel="stylesheet" href="/stylesheets/recipe_profile.css">
     <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" type="text/css">
-  
+
     <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" type="text/javascript"></script>
-  
+
     <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
     <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-  
+
 </head>
+
 <body>
+
+    <main class="container">
+        <div class="row" id="header">
+            <div class="col-lg-2">
+                <li><a href="index.html"> <i style="font-size: 30;">Home</i> </a></li>
+            </div>
+            <div class="col-lg-2">
+                <li><a href="recipes.html"> <i style="font-size: 30;">Recipes</i> </a></li>
+            </div>
+            <div class="col-lg-3">
+                <li><a href="whatscooking.html"> <i style="font-size: 30;">Whats Cooking</i> </a></li>
+            </div>
+    </main>
+
     <h1>Recipe Profile</h1>
 
     <div id="profile">
@@ -25,4 +42,5 @@
 
     <script src="./../javascripts/recipe_profile.js" type="text/babel"></script>
 </body>
+
 </html>

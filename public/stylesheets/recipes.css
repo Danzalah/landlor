@@ -1,0 +1,48 @@
+body {
+    background-image: url('/images/mainfood.jpg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    background-color: transparent;
+}
+
+h2 {
+    text-align: center;
+    padding: 25px;
+}
+
+a:hover {
+    color: fuchsia;
+}
+
+td {
+    color: black;
+}
+
+#header {
+    list-style: none;
+    white-space: nowrap;
+}
+
+#myTable {
+    background-color: rgba(255, 255, 255, 0.7);
+}
+
+.dataTable-bottom {
+    background-color: rgba(255, 255, 255, 0.7);
+}
+
+#recipes {
+    padding: 0px 200px 0px 200px;
+}
+
+@media (max-width:1186px){
+
+    #recipes{
+        padding: 0px calc(100vw - 986px) 0px calc(100vw - 986px);
+    }
+}

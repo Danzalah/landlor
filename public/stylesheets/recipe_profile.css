@@ -1,0 +1,85 @@
+body {
+    background-image: url('/images/mainfood.jpg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    background-color: transparent;
+}
+
+#header {
+    list-style: none;
+    white-space: nowrap;
+}
+
+h3 {
+    padding-left: 10px;
+}
+
+p {
+    padding: 0px 40px 0px 40px;
+}
+
+#profile {
+    padding: 0px 100px 0px 100px;
+}
+
+.grid-container {
+    background-color: rgba(255, 255, 255, 0.7);
+    display: grid;
+    /* grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 0.1fr 1fr 1fr 1fr; */
+    gap: 0px 0px;
+    grid-template-areas:
+        "null null null null header"
+        "ingredients ingredients portions portions details"
+        "instructions instructions instructions instructions description"
+        "instructions instructions instructions instructions image";
+}
+
+.ingredients {
+    grid-area: ingredients;
+    /* background-color: pink; */
+}
+
+.portions {
+    grid-area: portions;
+    /* background-color: firebrick; */
+}
+
+.instructions {
+    grid-area: instructions;
+    /* background-color: darkolivegreen; */
+}
+
+.header {
+    grid-area: header;
+    text-align: center;
+}
+
+.details {
+    grid-area: details;
+    /* background-color: azure; */
+}
+
+.description {
+    grid-area: description;
+    /* background-color: cadetblue; */
+}
+
+.image {
+    grid-area: image;
+    /* background-color: aqua; */
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.details, .description, .image {
+    max-width: 400px;
+}
+
+/* https://grid.layoutit.com/ */

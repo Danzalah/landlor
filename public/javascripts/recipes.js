@@ -85,3 +85,10 @@ function error() {
     console.log(xhttp.readyState);
     console.log(xhttp.status);
 }
+
+function checkFrame(){
+    const win = document.documentElement;
+    console.log(win.clientHeight, win.clientWidth);
+}
+
+window.addEventListener('resize', checkFrame)
