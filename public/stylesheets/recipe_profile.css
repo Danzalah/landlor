@@ -24,7 +24,15 @@ p {
 }
 
 #profile {
-    padding: 0px 100px 0px 100px;
+    padding: 0px 300px 0px 300px;
+    /* padding: 0px 100px 0px 100px; */
+}
+
+@media (max-width:1300px){
+
+    #profile{
+        padding: 0px calc(100vw - 1000px) 0px calc(100vw - 1000px);
+    }
 }
 
 .grid-container {
@@ -37,7 +45,10 @@ p {
         "null null null null header"
         "ingredients ingredients portions portions details"
         "instructions instructions instructions instructions description"
-        "instructions instructions instructions instructions image";
+        "instructions instructions instructions instructions image"
+        /* "instructions instructions instructions instructions null"
+        "instructions instructions instructions instructions null" */
+        ;
 }
 
 .ingredients {
@@ -47,6 +58,7 @@ p {
 
 .portions {
     grid-area: portions;
+
     /* background-color: firebrick; */
 }
 
@@ -76,6 +88,11 @@ p {
     display: block;
     margin-left: auto;
     margin-right: auto;
+}
+
+#image {
+    max-width: 400px;
+    max-height: auto;
 }
 
 .details, .description, .image {

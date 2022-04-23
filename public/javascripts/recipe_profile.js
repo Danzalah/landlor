@@ -89,7 +89,7 @@ function success() {
                 </div>
 
                 <div class="image">
-                    <img src={img} />
+                    <img id="image" src={img} />
                 </div>
 
             </div>
