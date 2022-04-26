@@ -69,17 +69,17 @@ function success() {
                 <div class="details">
                     <div>   {/* recipe info */}
                         <h2 id="title">{recipe.name}</h2>
-                        <p>published date: {date} by {recipe.author}</p>
+                        <p><strong>published date</strong>: {date} by <strong>{recipe.author}</strong></p>
                         <p>
-                            ratings: {recipe.rating} &emsp;
-                            total ratings: {recipe.rating_count}
+                            <strong>ratings</strong>: {recipe.rating} &emsp;
+                            <strong>total ratings</strong>: {recipe.rating_count}
                         </p>
                         <p>
-                            prep time:  {recipe.prep_time} &emsp;
-                            cook time:  {recipe.cook_time} &emsp;
-                            total time: {recipe.total_time}
+                            <strong>prep time</strong>:  {recipe.prep_time} &emsp;
+                            <strong>cook time</strong>:  {recipe.cook_time} &emsp;
+                            <strong>total time</strong>: {recipe.total_time}
                         </p>
-                        <p>Servings: {recipe.servings}</p>
+                        <p><strong>Servings</strong>: {recipe.servings}</p>
                     </div>
                 </div>
 

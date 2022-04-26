@@ -12,6 +12,9 @@ https://en.wikipedia.org/wiki/Map_(higher-order_function)
 function success() {
     let data = JSON.parse(xhttp.response);
 
+    data = shuffle(data);
+    
+
     let rows = data.map((row) =>
         <tr key={JSON.stringify(row)}>
             {/* note:
@@ -92,3 +95,24 @@ function checkFrame(){
 }
 
 window.addEventListener('resize', checkFrame)
+
+function shuffle(array) {
+    // function source: https://bost.ocks.org/mike/shuffle/
+    // randomize recipe list for effect
+
+    var m = array.length, t, i;
+  
+    // While there remain elements to shuffle…
+    while (m) {
+  
+      // Pick a remaining element…
+      i = Math.floor(Math.random() * m--);
+  
+      // And swap it with the current element.
+      t = array[m];
+      array[m] = array[i];
+      array[i] = t;
+    }
+  
+    return array;
+  }

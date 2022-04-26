@@ -1,52 +1,35 @@
-// let xhttp = new XMLHttpRequest();
+let xhttp = new XMLHttpRequest();
 
-// xhttp.addEventListener("load",success);
-// xhttp.addEventListener("error",error);
-// xhttp.open("GET", "/recipesOut", true);
-// xhttp.send();
+xhttp.addEventListener("load", success);
+xhttp.addEventListener("error", error);
+xhttp.open("GET", "/recipesOut", true);
+xhttp.send();
 
-// /*
-// https://reactjs.org/docs/lists-and-keys.html
-// https://en.wikipedia.org/wiki/Map_(higher-order_function)
-// */
-// function success(){
-//   let data = JSON.parse(xhttp.response);
+function success() {
+    let data = JSON.parse(xhttp.response);
 
-//   let rows = data.map((row) =>
-//     <tr key={JSON.stringify(row)}>
-//         <td> { row.recipeid }</td>
-//         <td> { row.name }</td>
-//         <td> { row.directions }</td>
-//     </tr>
-//   );
-//   console.log(rows);
-//   let element =(
-//     <div>
-//       <h2>Recipe Database</h2>
-//         <table id="myTable">
-//         <thead>
-//         <tr><th>recipeid</th><th>name</th><th>directions</th></tr>
-//         </thead>
-//         <tbody>
-//             {rows}
-//         </tbody>
-//         </table>
-//     </div>
-//   );
+    console.log(data);
 
-//   ReactDOM.render(
-//     element,
-//     document.getElementById('recipes')
-//   );
-//   /*
-//    datatable CSS
-//    https://datatables.net/
-//    https://github.com/fiduswriter/Simple-DataTables
-//   */
-//   const dataTable = new simpleDatatables.DataTable("#myTable");
+    let element = (
+        <div>
+            <form action="whatscooking" method="post" id="submit_ingredients">
+                <p>What ingredients do you have to work with?</p>
+                <input type="text" name="ingredients" placeholder="Whats Cooking?" />
+                <input type="submit" value="Let's Cook!" id="submit" />
+            </form>
+        </div>
+    );
 
-// }
-// function error(){
-//   console.log(xhttp.readyState);
-//   console.log(xhttp.status);
-// }
+    ReactDOM.render(
+        element,
+        document.getElementById('whatscooking')
+    );
+};
+
+
+function error() {
+    console.log(xhttp.readyState);
+    console.log(xhttp.status);
+};
+
+

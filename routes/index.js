@@ -41,4 +41,8 @@ router.get('/recipesOut', function(req, res, next) {
   });
 });
 
+router.get('/recipes', function(req, res, next) {
+  res.sendFile(path.join(__dirname,'..', 'public','recipes.html'));
+});
+
 module.exports = router;
