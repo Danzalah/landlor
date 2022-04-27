@@ -1,20 +1,3 @@
-body {
-    background-image: url('/images/mainfood.jpg');
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-position: center;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
-    background-color: transparent;
-}
-
-#header {
-    list-style: none;
-    white-space: nowrap;
-}
-
 h3 {
     padding-left: 10px;
 }
@@ -67,10 +50,10 @@ p {
     /* background-color: darkolivegreen; */
 }
 
-.header {
+/* .header {
     grid-area: header;
     text-align: center;
-}
+} */
 
 .details {
     grid-area: details;

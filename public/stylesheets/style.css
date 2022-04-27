@@ -1,17 +1,28 @@
 body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+
+  background-image: url('/images/mainfood.jpg');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  background-color: transparent;
 }
 
-a {
+
+/* a {
   color: #00B7FF;
-}
+} */
 
 #message {
   color: red;
 }
-nav ul li {
+/* nav ul li {
   display: inline;
   list-style-type: none;
 }
-.menu {text-align: right;}
+.menu {text-align: right;} */

@@ -1,0 +1,38 @@
+
+.header{
+    margin: 1rem;
+    padding-left: 16px;
+    padding-right: 16px;
+}
+
+.links {
+    display: inline-block;
+    white-space: nowrap;
+    list-style: none;
+    padding: 0;
+    list-style-type: none;
+
+    border-spacing: 0;
+    border: 0;
+    border-collapse: collapse;
+}
+
+.logo {
+    font-size: medium;
+}
+
+.links-header {
+    float: left;
+    padding-left: 25px;
+}
+
+.left_header{
+    display: inline-block;
+}
+
+.right_header {
+    display: inline-block;
+    right: 100;
+    position: absolute;
+    padding-right: 25px;
+}

@@ -14,10 +14,10 @@ function success() {
     // https://flaviocopes.com/urlsearchparams/ how to get queries from url
     let params = new URLSearchParams(window.location.search)
     let query = params.get('recipe')    // query by id
-    console.log(query)
+    // console.log(query)
 
     let recipe = data[query - 1]     // -1 since we start our keys at 1
-    console.log(recipe)
+    // console.log(recipe)
 
     // https://dev.to/duomly/how-to-use-loop-in-react-js-ael
     var instructions = []
@@ -43,30 +43,28 @@ function success() {
         img = recipe.images[0]
     }
 
-    console.log(img)
-
     let element = (
 
-        <div class="grid-block">
+        <div className="grid-block">
 
-            <div class="grid-container">
+            <div className="grid-container">
 
-                <div class="ingredients">
+                <div className="ingredients">
                     <h3>Ingredients</h3>
                     <ol>{ingredients}</ol>
                 </div>
 
-                <div class="portions">
+                <div className="portions">
                     <h3>Portions</h3>
                     <ol>{portions}</ol>
                 </div>
 
-                <div class="instructions">
+                <div className="instructions">
                     <h3>Instructions</h3>
                     <ol>{instructions}</ol>
                 </div>
 
-                <div class="details">
+                <div className="details">
                     <div>   {/* recipe info */}
                         <h2 id="title">{recipe.name}</h2>
                         <p><strong>published date</strong>: {date} by <strong>{recipe.author}</strong></p>
@@ -83,12 +81,12 @@ function success() {
                     </div>
                 </div>
 
-                <div class="description">
+                <div className="description">
                     <h3>Description</h3>
                     <p>{recipe.description}</p>
                 </div>
 
-                <div class="image">
+                <div className="image">
                     <img id="image" src={img} />
                 </div>
 
