@@ -12,8 +12,9 @@ function success() {
 
     let element = (
         <div>
+            
             <div class="bar">
-                        <input class="searchbar" type="text" name="ingredients" placeholder="Whats Cooking?"/>
+                <input class="searchbar" type="text" name="ingredients" placeholder="Whats Cooking?"/>
             </div>
         </div>
     );
