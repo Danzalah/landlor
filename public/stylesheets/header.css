@@ -1,8 +1,8 @@
 
 .header{
-    margin: 1rem;
     padding-left: 16px;
     padding-right: 16px;
+    display: inline-block;
 }
 
 .links {
@@ -12,18 +12,27 @@
     padding: 0;
     list-style-type: none;
 
+    
+
     border-spacing: 0;
     border: 0;
     border-collapse: collapse;
 }
 
+
 .logo {
     font-size: medium;
+}
+
+.logo-header{
+    float: left;
+    padding-left: 25px;
 }
 
 .links-header {
     float: left;
     padding-left: 25px;
+    padding-top: 60px;
 }
 
 .left_header{

@@ -26,6 +26,12 @@ var bcrypt = require('bcryptjs');
 
 router.get('/logout', function(req, res){
   req.logout(); //passport provide it
+
+  // let xhttp = new XMLHttpRequest();
+  // xhttp.open("GET", "/usersLog", true)
+  // xhttp.send(false)
+
+
   res.redirect('/'); // Successful. redirect to localhost:3000/
 });
 

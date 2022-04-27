@@ -32,6 +32,16 @@ router.get('/recipes', function(req, res, next) {
   res.sendFile(path.join(__dirname,'..', 'public','recipes.html'));
 });
 
+router.get('/usersLog', function(req, res, next) {
+  if (req.user){
+    res.json(true);
+    // console.log(req.user)
+  }
+  else {
+    res.json(false);
+  }
+})
+
 router.get('/recipesOut', function(req, res, next) {
   // client object enables issuing SQL queries
   client.query('SELECT * FROM recipes', function(err, result){

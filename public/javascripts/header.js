@@ -1,9 +1,26 @@
 let header_request = new XMLHttpRequest();
 
-xhttp.addEventListener("load", success);
-xhttp.addEventListener("error", error);
+header_request.addEventListener("load", success);
+header_request.addEventListener("error", error);
+header_request.open("GET", "/usersLog", true);
+header_request.send();
 
 function success() {
+
+    let checkLoggedIn = header_request.response;
+    var signupAccount;
+    var logInOut;
+
+    if (checkLoggedIn == "true"){
+        signupAccount = "Account";
+        logInOut = "Log Out";
+    }
+    else {
+        signupAccount = "Sign Up!";
+        logInOut = "Log In";
+    }
+
+    console.log(typeof checkLoggedIn)
 
     let element = (
         <div>
@@ -11,17 +28,17 @@ function success() {
                 {/* links section */}
                 <div className="left_header">
                     <ul className="links">
-                        <li className="links-header"><h1 className="logo">whats cooking logo?</h1></li>
+                        <li className="logo-header"><img src="../images/logo.png" width="100" /></li>
                         <li className="links-header"><a href="/">Home</a></li>
                         <li className="links-header"><a href="/recipes">Recipes</a></li>
-                        <li className="links-header"><a href="/whatscooking">Whats Cooking</a></li>
+                        <li className="links-header"><a href="/recipes/whatscooking">Whats Cooking</a></li>
                     </ul>
                 </div>
                 {/* login section */}
                 <div className="right_header">
                     <ul className="links">
-                        <li className="links-header"><a href="/users/signup">Sign Up!</a></li>
-                        <li className="links-header"><a href="/users/login">Log In</a></li>
+                        <li className="links-header"><a href="/users/signup">{signupAccount}</a></li>
+                        <li className="links-header"><a href="/users/login">{logInOut}</a></li>
                     </ul>
                 </div>
 

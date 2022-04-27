@@ -27,7 +27,7 @@ td {
     background-color: rgba(255, 255, 255, 0.7);
 }
 
-.dataTable-bottom {
+.dataTable-top, .dataTable-bottom {
     background-color: rgba(255, 255, 255, 0.7);
 }
 
