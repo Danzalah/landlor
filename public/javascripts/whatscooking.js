@@ -12,11 +12,9 @@ function success() {
 
     let element = (
         <div>
-            <form action="whatscooking" method="post" id="submit_ingredients">
-                <p>What ingredients do you have to work with?</p>
-                <input type="text" name="ingredients" placeholder="Whats Cooking?" />
-                <input type="submit" value="Let's Cook!" id="submit" />
-            </form>
+            <div class="bar">
+                        <input class="searchbar" type="text" name="ingredients" placeholder="Whats Cooking?"/>
+            </div>
         </div>
     );
 
