@@ -14,9 +14,7 @@ function success() {
         <div>
             <div class="bar">
             <form action="whatscooking" method="post" id="submit_ingredients">
-            <input className="searchbar" type="text" name="ingredients" placeholder="Whats Cooking?" />
-            <button className="button" type="button" id="submit">Let's Cook!</button>
-            
+            <input className="searchbar" type="text" name="ingredients" placeholder="Whats Cooking?" />            
             </form>
             </div>
         </div>
