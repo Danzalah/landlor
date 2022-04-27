@@ -12,10 +12,16 @@ function success() {
 
     let element = (
         <div>
-            
-            <div class="bar">
-                <input class="searchbar" type="text" name="ingredients" placeholder="Whats Cooking?"/>
-            </div>
+
+            <ul className="homeBar">
+                <li><img className="homeLogo" src="../images/logo_large.png" width="400" /></li>
+
+                <li>
+                    <div className="bar">
+                        <input className="searchbar" type="text" name="ingredients" placeholder="Whats Cooking?" />
+                    </div>
+                </li>
+            </ul>
         </div>
     );
 
