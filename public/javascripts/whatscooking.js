@@ -14,7 +14,7 @@ function success() {
         <div>
             <div class="bar">
             <form action="whatscooking" method="post" id="submit_ingredients">
-            <input className="searchbar" type="text" name="ingredients" placeholder="Whats Cooking?" />            
+            <input className="searchbar" type="text" name="ingredients" placeholder="Enter Ingredients and seperate by commas (eg. milk,fish)" />            
             </form>
             </div>
         </div>
