@@ -43,7 +43,7 @@ router.post('/whatscooking', function (req, res, next) {
 
       // handle trailing or leading spaces and maybe spaces in between
       var ingredients = req.body.ingredients.split(',')
-
+      res.redirect('/recipes/whatscooking?message='+ingredients+"");
       // plurals can be a problem
       // need id, match count 
       var matches = [];

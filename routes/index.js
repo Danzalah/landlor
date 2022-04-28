@@ -47,7 +47,12 @@ router.get('/usersLog', function (req, res, next) {
   }
 })
 
+<<<<<<< HEAD
 router.get('/recipesOut', function (req, res, next) {
+=======
+
+router.get('/recipesOut', function(req, res, next) {
+>>>>>>> 5880e5c1b9c0610cb18a74ddcdf212a881a78690
   // client object enables issuing SQL queries
   client.query('SELECT * FROM recipes', function (err, result) {
     if (err) { next(err); }
