@@ -12,6 +12,7 @@ function success() {
 
     let element = (
         <div>
+            <form action="whatscooking" method="post" id="submit_ingredients">
             <ul className="homeBar">
                 <li><img className="homeLogo" src="../images/logo_large.png" width="400" /></li>
                 <li>
@@ -20,6 +21,7 @@ function success() {
                     </div>
                 </li>
             </ul>
+            </form>
         </div>
     );
 

@@ -1,2 +1,6 @@
 create table recipes ("id" serial primary key, name text, author text, cook_time text, prep_time text, total_time text, date_published date, description text, images text[], ing_portion text[], ingredients text[], rating float8, rating_count int, servings int, instructions text[]);
 15 headers including primary key
+
+INSERT INTO recipes (name, author, cook_time, prep_time, total_time, date_published, description, images, ing_portion, ingredients, rating, rating_count, servings, instructions) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14)
+
+DELETE FROM recipes WHERE id BETWEEN 975 and y;

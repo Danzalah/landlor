@@ -7,20 +7,24 @@ header_request.send();
 
 function success() {
 
-    let checkLoggedIn = header_request.response;
+    let checkLoggedIn = JSON.parse(header_request.response);
     var signupAccount;
+    var signupAccountHref;
     var logInOut;
+    var logInOutHref;
 
-    if (checkLoggedIn == "true"){
+    if (checkLoggedIn.loggedin){
         signupAccount = "Account";
+        signupAccountHref = "/users/profile?name=" + checkLoggedIn.user;
         logInOut = "Log Out";
+        logInOutHref = "/users/logout";
     }
     else {
         signupAccount = "Sign Up!";
+        signupAccountHref = "/users/signup";
         logInOut = "Log In";
+        logInOutHref = "/users/login";
     }
-
-    console.log(typeof checkLoggedIn)
 
     let element = (
         <div>
@@ -37,8 +41,8 @@ function success() {
                 {/* login section */}
                 <div className="right_header">
                     <ul className="links">
-                        <li className="links-header"><a href="/users/signup">{signupAccount}</a></li>
-                        <li className="links-header"><a href="/users/login">{logInOut}</a></li>
+                        <li className="links-header"><a href={signupAccountHref}>{signupAccount}</a></li>
+                        <li className="links-header"><a href={logInOutHref}>{logInOut}</a></li>
                     </ul>
                 </div>
 

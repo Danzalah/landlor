@@ -24,8 +24,8 @@ client.connect();
 
 router.get('/recipe_profile', function (req, res, next) {
 
-  console.log(req.user)
-  console.log(req.query);
+  // console.log(req.user)
+  // console.log(req.query);
   res.sendFile(path.join(__dirname, '..', 'public', 'recipe_profile.html'))
 });
 
