@@ -42,6 +42,7 @@ router.get('/usersLog', function(req, res, next) {
   }
 })
 
+
 router.get('/recipesOut', function(req, res, next) {
   // client object enables issuing SQL queries
   client.query('SELECT * FROM recipes', function(err, result){
