@@ -36,6 +36,13 @@ function success() {
         </tr>
     );
 
+    var num = [];
+    for (var i = 1; i <= 24; i++) {
+        num.push(<option key={i} value={i}>{i}</option>);
+        // num.push(i);
+    };
+
+
     let element = (
         <div className="grid-block">
             <h1>Welcome, {info.user}!</h1>
@@ -64,9 +71,14 @@ function success() {
                             <input type="number" name="cooktime" min="0" max="240" defaultValue="0" />
                             <input type="number" name="preptime" min="0" max="240" defaultValue="0" />
                             <input type="text" name="totaltime" defaultValue="Total Time" />
-                            <select id="servings">{select_stuff}</select>
+                            <select name="servings" id="servings" >
+                                {/* {dynamically create select element:
+                                    https://stackoverflow.com/questions/36205673/how-do-i-create-a-dynamic-drop-down-list-with-react-bootstrap} */}
+                                {num}
+                            </select>
                         </div>
                         <div>
+                            {/* {https://stackoverflow.com/questions/14853779/adding-input-elements-dynamically-to-form} */}
                             <input type="text" name="portion" defaultValue="Portion" />
                             <input type="text" name="ingredients" defaultValue="Ingredients" />
                         </div>
@@ -111,15 +123,3 @@ function error() {
     console.log(xhttp.readyState);
     console.log(xhttp.status);
 };
-
-function select_stuff(){
-    var servings;
-    for (var i = 1; i <= 24; i++) {
-        servings = document.getElementById("servings");
-        var option = document.createElement("OPTION");
-        servings.options.add(option);
-        option.text = i;
-        option.value = i;
-    }
-    // return servings
-}

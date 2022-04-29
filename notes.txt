@@ -6,3 +6,5 @@ INSERT INTO recipes (name, author, cook_time, prep_time, total_time, date_publis
 DELETE FROM recipes WHERE id BETWEEN 975 and y;
 
 UPDATE users SET recipes = ARRAY_APPEND(recipes, 975) WHERE id = 1;
+
+ALTER TABLE users ADD COLUMN recipes int[];
