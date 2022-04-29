@@ -53,29 +53,12 @@ router.post('/profile', function (req, res, next) {
   // console.log(req.body)
   // console.log(req.user)
 
-  // var body = [req.body.title, req.body.description, req.body.portion, req.body.instructions, req.body.images,
-  // !req.body.preptime, !req.body.cooktime, !req.body.totaltime, !req.body.servings, !req.body.ingredients]
-  // console.log(body)
-
   if (!req.body.title || !req.body.description || !req.body.portion || !req.body.instructions || !req.body.images ||
     !req.body.preptime || !req.body.cooktime || !req.body.totaltime || !req.body.servings || !req.body.ingredients) {
     res.redirect('/users/profile?name=' + req.user.username + "&message=fill+all+empty+fields");
     console.log("there are empty");
   }
   else {
-
-    var portions = req.body.portion.split(',');
-    var ingredients = req.body.ingredients.split(',');
-    var images = req.body.images.split(',');
-    var instructions = req.body.instructions.split(',');
-
-    const d = new Date();
-    var month = d.getMonth() + 1;
-    if ((d.getMonth() + 1) < 10) {
-      month = "0" + (d.getMonth() + 1)
-    }
-    var date = d.getFullYear() + "-" + month + "-" + d.getDate();
-    console.log(date)
 
     client.query('SELECT count(*) FROM recipes', [], function (err, result) {
       if (err) {
@@ -84,21 +67,42 @@ router.post('/profile', function (req, res, next) {
       }
       var nextid = parseInt(result.rows[0].count) + 1;
 
+      var portions = req.body.portion.split(',');
+      var ingredients = req.body.ingredients.split(',');
+      var images = req.body.images.split(',');
+      var instructions = req.body.instructions.split(',');
+
+      const d = new Date();
+      var month = d.getMonth() + 1;
+      if ((d.getMonth() + 1) < 10) {
+        month = "0" + (d.getMonth() + 1)
+      }
+      var date = d.getFullYear() + "-" + month + "-" + d.getDate();
+
+      // TODO:: sum up cook time and prep time for total time
       client.query('INSERT INTO recipes(id, name, author, cook_time, prep_time, total_time, date_published, description, images, ing_portion, ingredients, rating, rating_count, servings, instructions) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15)',
         [nextid, req.body.title, req.user.username, req.body.cooktime, req.body.preptime, req.body.totaltime, date, req.body.description, images, portions, ingredients, 0, 0, 0, instructions], function (err, result) {
           if (err) {
             console.log("error posting recipe")
             next(err)
           }
+          console.log("insert into recipes successful for id:", nextid)
+
         }); // end of insert query
 
-        console.log("insert into recipes successful for id:", nextid)
-        console.log(req.user.id)
+      client.query('UPDATE users SET recipes = array_append(recipes, $1) WHERE id=$2', [nextid, req.user.id], function(err, result) {
+        if (err) {
+          console.log("error updating users recipes array");
+          next(err);
+        };
+
+        console.log("inserted into user id:", req.user.id, " recipe list");
+      }); // end of update recipes array query
 
     });// end of count query
   }//end of else
 
-  res.redirect('/users/profile?name=' + req.user.username);
+  res.redirect('/users/profile?name=' + req.user.username + "&message=post+recipe+success");
 });
 
 function notLoggedIn(req, res, next) {

@@ -4,3 +4,5 @@ create table recipes ("id" serial primary key, name text, author text, cook_time
 INSERT INTO recipes (name, author, cook_time, prep_time, total_time, date_published, description, images, ing_portion, ingredients, rating, rating_count, servings, instructions) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14)
 
 DELETE FROM recipes WHERE id BETWEEN 975 and y;
+
+UPDATE users SET recipes = ARRAY_APPEND(recipes, 975) WHERE id = 1;

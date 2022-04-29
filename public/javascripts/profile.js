@@ -1,14 +1,40 @@
-let profle_request = new XMLHttpRequest();
+let profile_request = new XMLHttpRequest();
+profile_request.addEventListener("load", success);
+profile_request.addEventListener("error", error);
+profile_request.open("GET", "/usersLog", true);
+profile_request.send();
 
-profle_request.addEventListener("load", success);
-profle_request.addEventListener("error", error);
-profle_request.open("GET", "/usersLog", true);
-profle_request.send();
+let recipe_request = new XMLHttpRequest();
+recipe_request.addEventListener("load", success);
+recipe_request.addEventListener("error", error);
+recipe_request.open("GET", "/recipesOut", true);
+recipe_request.send();
 
 function success() {
 
-    let info = JSON.parse(profle_request.response)
+    let info = JSON.parse(profile_request.response);
+    let recipes = JSON.parse(recipe_request.response);
 
+    var user_recipes = [];
+    for (const [i, id] of info.recipes.entries()) {
+        var temp = {
+            id: recipes[id].id,
+            name: recipes[id].name,
+            date: recipes[id].date_published.substring(0, 10),
+            rating: recipes[id].rating
+
+        };
+        user_recipes.push(temp);
+    };
+    // console.log(user_recipes)
+
+    let rows = user_recipes.map((row) =>
+        <tr key={JSON.stringify(row)}>
+            <td><a href={"../recipes/recipe_profile?recipe=" + row.id}>{row.name}</a></td>
+            <td>{row.date}</td>
+            <td>{row.rating}</td>
+        </tr>
+    );
 
     let element = (
         <div className="grid-block">
@@ -30,22 +56,44 @@ function success() {
                         <input type="submit" value="Submit" />
                     </form> */}
                     <form action="profile" method="post" id="submit_post">
-                        <input type="text" name="title" defaultValue="Title" />
-                        <input type="text" name="description" defaultValue="Description" />
-                        <input type="text" name="ingredients" defaultValue="Ingredients" />
-                        <input type="text" name="portion" defaultValue="Portion" />
-                        <input type="text" name="instructions" defaultValue="Instructions" />
-                        <input type="text" name="preptime" defaultValue="Prep Time" />
-                        <input type="text" name="cooktime" defaultValue="Cook Time" />
-                        <input type="text" name="totaltime" defaultValue="Total Time" />
-                        <input type="text" name="servings" defaultValue="0" />
-                        <input type="text" name="images" defaultValue="images" />
+                        <div>
+                            <input type="text" name="title" defaultValue="Title" />
+                            <input type="text" name="description" defaultValue="Description" />
+                        </div>
+                        <div>
+                            <input type="number" name="cooktime" min="0" max="240" defaultValue="0" />
+                            <input type="number" name="preptime" min="0" max="240" defaultValue="0" />
+                            <input type="text" name="totaltime" defaultValue="Total Time" />
+                            <select id="servings">{select_stuff}</select>
+                        </div>
+                        <div>
+                            <input type="text" name="portion" defaultValue="Portion" />
+                            <input type="text" name="ingredients" defaultValue="Ingredients" />
+                        </div>
+                        <div>
+                            <input type="text" name="instructions" defaultValue="Instructions" />
+                        </div>
+                        <div>
+                            <input type="text" name="images" defaultValue="images" />
+                        </div>
                         <input type="submit" value="Submit" />
                     </form>
                 </div>
 
                 <div className="recipes">
-                    <h2>Recipes</h2>
+                    <h2>Recipes by You!</h2>
+                    <table id="recipes" border="2" cellSpacing="1" cellPadding="8" className="recipeTable">
+                        <thead>
+                            <tr>
+                                <th id="thName">Name</th>
+                                <th id="thDate">Date Publshed</th>
+                                <th id="thRating">Rating</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {rows}
+                        </tbody>
+                    </table>
                 </div>
 
             </div>
@@ -63,3 +111,15 @@ function error() {
     console.log(xhttp.readyState);
     console.log(xhttp.status);
 };
+
+function select_stuff(){
+    var servings;
+    for (var i = 1; i <= 24; i++) {
+        servings = document.getElementById("servings");
+        var option = document.createElement("OPTION");
+        servings.options.add(option);
+        option.text = i;
+        option.value = i;
+    }
+    // return servings
+}

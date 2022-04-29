@@ -37,7 +37,8 @@ router.get('/usersLog', function (req, res, next) {
   if (req.user) {
     var obj = {
       user: req.user.prefer,
-      loggedin: true
+      loggedin: true,
+      recipes: req.user.recipes
     }
     res.json(obj);
     // console.log(req.user.prefer)
@@ -47,12 +48,7 @@ router.get('/usersLog', function (req, res, next) {
   }
 })
 
-<<<<<<< HEAD
 router.get('/recipesOut', function (req, res, next) {
-=======
-
-router.get('/recipesOut', function(req, res, next) {
->>>>>>> 5880e5c1b9c0610cb18a74ddcdf212a881a78690
   // client object enables issuing SQL queries
   client.query('SELECT * FROM recipes', function (err, result) {
     if (err) { next(err); }

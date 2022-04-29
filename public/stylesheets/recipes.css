@@ -1,15 +1,3 @@
-body {
-    background-image: url('/images/mainfood.jpg');
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-position: center;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
-    background-color: transparent;
-}
-
 h2 {
     text-align: center;
     padding: 25px;
@@ -23,11 +11,7 @@ td {
     color: black;
 }
 
-#myTable {
-    background-color: rgba(255, 255, 255, 0.7);
-}
-
-.dataTable-top, .dataTable-bottom {
+#myTable, .dataTable-top, .dataTable-bottom {
     background-color: rgba(255, 255, 255, 0.7);
 }
 
