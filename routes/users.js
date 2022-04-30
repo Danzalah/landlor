@@ -54,7 +54,7 @@ router.post('/profile', function (req, res, next) {
   // console.log(req.user)
 
   if (!req.body.title || !req.body.description || !req.body.portion || !req.body.instructions || !req.body.images ||
-    !req.body.preptime || !req.body.cooktime || !req.body.totaltime || !req.body.servings || !req.body.ingredients) {
+    !req.body.preptime || !req.body.cooktime || !req.body.servings || !req.body.ingredients) {
     res.redirect('/users/profile?name=' + req.user.username + "&message=fill+all+empty+fields");
     console.log("there are empty");
   }
@@ -71,6 +71,9 @@ router.post('/profile', function (req, res, next) {
       var ingredients = req.body.ingredients.split(',');
       var images = req.body.images.split(',');
       var instructions = req.body.instructions.split(',');
+      var totaltime = String(parseInt(req.body.cooktime) + parseInt(req.body.preptime)) + "M";
+      var cooktime = req.body.cooktime + "M";
+      var preptime = req.body.preptime + "M";
 
       const d = new Date();
       var month = d.getMonth() + 1;
@@ -81,7 +84,7 @@ router.post('/profile', function (req, res, next) {
 
       // TODO:: sum up cook time and prep time for total time
       client.query('INSERT INTO recipes(id, name, author, cook_time, prep_time, total_time, date_published, description, images, ing_portion, ingredients, rating, rating_count, servings, instructions) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15)',
-        [nextid, req.body.title, req.user.username, req.body.cooktime, req.body.preptime, req.body.totaltime, date, req.body.description, images, portions, ingredients, 0, 0, 0, instructions], function (err, result) {
+        [nextid, req.body.title, req.user.username, cooktime, preptime, totaltime, date, req.body.description, images, portions, ingredients, 0, 0, 0, instructions], function (err, result) {
           if (err) {
             console.log("error posting recipe")
             next(err)

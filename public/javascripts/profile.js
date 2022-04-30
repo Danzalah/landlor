@@ -10,6 +10,8 @@ recipe_request.addEventListener("error", error);
 recipe_request.open("GET", "/recipesOut", true);
 recipe_request.send();
 
+var portion_ingr_counter = 0;
+
 function success() {
 
     let info = JSON.parse(profile_request.response);
@@ -39,9 +41,7 @@ function success() {
     var num = [];
     for (var i = 1; i <= 24; i++) {
         num.push(<option key={i} value={i}>{i}</option>);
-        // num.push(i);
     };
-
 
     let element = (
         <div className="grid-block">
@@ -49,28 +49,17 @@ function success() {
             <div className="grid-container">
                 <div className="post">
                     <h2>Post a Recipe</h2>
-                    {/* <form action="profile" method="post" id="submit_post">
-                        <input type="text" name="title" placeholder="Title" />
-                        <input type="text" name="description" placeholder="Description" />
-                        <input type="text" name="ingredients" placeholder="Ingredients" />
-                        <input type="text" name="portion" placeholder="Portion" />
-                        <input type="text" name="instructons" placeholder="Instructions" />
-                        <input type="text" name="preptime" placeholder="Prep Time" />
-                        <input type="text" name="cooktime" placeholder="Cook Time" />
-                        <input type="text" name="totaltime" placeholder="Total Time" />
-                        <input type="text" name="servings" placeholder="Servings" />
-                        <input type="text" name="images" placeholder="images" />
-                        <input type="submit" value="Submit" />
-                    </form> */}
                     <form action="profile" method="post" id="submit_post">
                         <div>
-                            <input type="text" name="title" defaultValue="Title" />
+                            <input type="text" name="title" defaultValue="Title" /> <br />
                             <input type="text" name="description" defaultValue="Description" />
                         </div>
                         <div>
-                            <input type="number" name="cooktime" min="0" max="240" defaultValue="0" />
-                            <input type="number" name="preptime" min="0" max="240" defaultValue="0" />
-                            <input type="text" name="totaltime" defaultValue="Total Time" />
+                            <label id="label">Prep Time: </label>
+                            <input type="number" id="time" step="5" name="cooktime" min="0" max="240" defaultValue="0" />
+                            <label id="label">Cook Time: </label>
+                            <input type="number" id="time" step="5" name="preptime" min="0" max="240" defaultValue="0" />
+                            <label id="label">Number of Servings: </label>
                             <select name="servings" id="servings" >
                                 {/* {dynamically create select element:
                                     https://stackoverflow.com/questions/36205673/how-do-i-create-a-dynamic-drop-down-list-with-react-bootstrap} */}
@@ -78,9 +67,13 @@ function success() {
                             </select>
                         </div>
                         <div>
-                            {/* {https://stackoverflow.com/questions/14853779/adding-input-elements-dynamically-to-form} */}
-                            <input type="text" name="portion" defaultValue="Portion" />
-                            <input type="text" name="ingredients" defaultValue="Ingredients" />
+                            <div id="portion_ingr">
+                                <label id="label">Portion: </label>
+                                <input type="text" id="portion-0" name="portion" defaultValue="Portion" />
+                                <label id="label">Ingredient: </label>
+                                <input type="text" id="ingredient-0" name="ingredients" defaultValue="Ingredients" />
+                            </div>
+                            <button id="btn" type="button" onClick={AddIngredient}>Add Ingredient</button>
                         </div>
                         <div>
                             <input type="text" name="instructions" defaultValue="Instructions" />
@@ -118,6 +111,42 @@ function success() {
     )
 
 };
+
+function AddIngredient() {
+    var port_ingr = document.getElementById('portion_ingr');
+    portion_ingr_counter++;
+
+    var br = document.createElement("br");
+    port_ingr.appendChild(br);
+
+    var portion_label = document.createElement("label");
+    portion_label.id = "label";
+    portion_label.innerHTML = "Portion: "
+    port_ingr.appendChild(portion_label)
+
+    var portion_input = document.createElement("input");
+    portion_input.id = 'portion-' + portion_ingr_counter;
+    portion_input.type = 'text';
+    portion_input.name = 'portion';
+    portion_input.placeholder = 'portion ' + portion_ingr_counter;
+    port_ingr.appendChild(portion_input);
+
+    var ingr_label = document.createElement("label");
+    ingr_label.id = "label"
+    ingr_label.innerHTML = "Ingredient: "
+    port_ingr.appendChild(ingr_label)
+
+    var ingr_input = document.createElement("input");
+    ingr_input.id = 'ingredient-' + portion_ingr_counter;
+    ingr_input.type = 'text';
+    ingr_input.name = 'ingredients';
+    ingr_input.placeholder = 'Ingredient ' + portion_ingr_counter;
+    port_ingr.appendChild(ingr_input);
+
+
+    
+
+}
 
 function error() {
     console.log(xhttp.readyState);

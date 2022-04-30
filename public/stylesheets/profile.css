@@ -15,3 +15,13 @@ h2 {
 #servings {
     width: 50px;
 }
+
+#label {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+#time {
+    width: 75px;
+
+}

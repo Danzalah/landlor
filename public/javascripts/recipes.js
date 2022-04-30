@@ -13,6 +13,8 @@ function success() {
     let data = JSON.parse(xhttp.response);
 
     data = shuffle(data);
+
+    console.log(data)
     
 
     let rows = data.map((row) =>
@@ -25,7 +27,7 @@ function success() {
 
             {/* don't need a lot of these columns but keep here in case we want to add again*/}
             {/* <td> {row.id}</td> */}
-            <td> <a href={"recipes/recipe_profile?recipe=" + row.id}>{row.name}</a></td>    {/* pass id here to get query later*/}
+            <td> <a href={"recipes/recipe_profile?recipe=" + (row.id +2)}>{row.name}</a></td>    {/* pass id here to get query later*/}
             <td> {row.author}</td>
             {/* <td> {row.cook_time}</td> */}
             {/* <td> {row.prep_time}</td> */}
