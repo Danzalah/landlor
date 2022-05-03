@@ -6,6 +6,13 @@ xhttp.send();
 let pos = 0;
 
 function success() {
+    // if (document.getElementById("submit")!= null){
+    //     const loadMore = document.getElementById("submit");
+    //     loadMore.addEventListener("click",function(e) {
+    //     console.log("button was clicked");
+    //     });
+    // }
+    console.log("succes ran");
     let data = JSON.parse(xhttp.response);
     let params = new URLSearchParams(window.location.search)
     var matches = [];
@@ -56,7 +63,7 @@ function success() {
         console.log(tid)
         console.log(tname)
         console.log(tpercent)
-    
+        document.getElementById("submit").style.display = "block";
     
     let rows = matches.map((row) =>
         <tr key={JSON.stringify(row)}>
@@ -98,7 +105,7 @@ function success() {
                 <h3>{matches[pos+3].name}<span>{matches[pos+3].percent_match}%</span></h3>
                 <a class="gotofood" href={"recipe_profile?recipe=" + matches[pos+3].id}>Let's Cook!</a>
             </div> 	
-            <button className="button" type="button" id="submit" onclick="next()">More</button>
+            
         </div>
            {/* ------------------------------------------------------------- */}
            
@@ -133,9 +140,11 @@ function success() {
     }
 };
 
+const loadMore = document.getElementById("submit");
+loadMore.addEventListener("click",next);
+loadMore.addEventListener("click",success);
 function next() {
     pos++;
-    console.log(pos);
   }
 
 function error() {
