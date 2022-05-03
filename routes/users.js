@@ -96,15 +96,17 @@ router.post('/profile', function (req, res, next) {
           }
           console.log("insert into recipes successful for id:", nextid)
 
+          client.query('UPDATE users SET recipes = array_append(recipes, $1) WHERE id=$2', [nextid, req.user.id], function(err, result) {
+            if (err) {
+              console.log("error updating users recipes array");
+              next(err);
+            };
+
         }); // end of insert query
 
-      client.query('UPDATE users SET recipes = array_append(recipes, $1) WHERE id=$2', [nextid, req.user.id], function(err, result) {
-        if (err) {
-          console.log("error updating users recipes array");
-          next(err);
-        };
 
-        console.log("inserted into user id:", req.user.id, " recipe list");
+
+        console.log("inserted into user id:", req.user.id, ":", req.user.username, ", recipe list");
       }); // end of update recipes array query
 
     });// end of count query

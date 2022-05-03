@@ -35,13 +35,19 @@ router.get('/recipes', function (req, res, next) {
 
 router.get('/usersLog', function (req, res, next) {
   if (req.user) {
-    var obj = {
-      user: req.user.prefer,
-      loggedin: true,
-      recipes: req.user.recipes
-    }
-    res.json(obj);
-    // console.log(req.user.prefer)
+
+    client.query('SELECT * FROM users WHERE id=$1', [req.user.id], function (err, result) {
+      if (err) { next(err); }
+
+      var obj = {
+        user: req.user.username,
+        loggedin: true,
+        recipes: result.rows[0].recipes
+      }
+      res.json(obj);
+
+      // console.log(result.rows[0].recipes)
+    });
   }
   else {
     res.json(false);
@@ -61,9 +67,9 @@ router.get('/recipes', function (req, res, next) {
   res.sendFile(path.join(__dirname, '..', 'public', 'recipes.html'));
 });
 
-router.get('/swapsOut', function(req, res, next) {
-  client.query("SELECT * FROM swaps", function(err, result){
-    if (err) {next(err);}
+router.get('/swapsOut', function (req, res, next) {
+  client.query("SELECT * FROM swaps", function (err, result) {
+    if (err) { next(err); }
     res.json(result.rows);
   });
 });

@@ -34,7 +34,6 @@ function success() {
         };
         user_recipes.push(temp);
     };
-    // console.log(user_recipes)
 
     let rows = user_recipes.map((row) =>
         <tr key={JSON.stringify(row)}>
