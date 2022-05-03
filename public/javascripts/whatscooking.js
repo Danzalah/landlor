@@ -57,13 +57,12 @@ function success() {
 
         //TODO:: something wrong with matches, does not redirect to correct recipes
         // console.log(matches)
-        // tid = matches[pos].id;
-        // tname = matches[pos].name;
-        // tpercent = matches[pos].percent_match;
-        // console.log(tid)
-        // console.log(tname)
-        // console.log(tpercent)
-        pos = matches.length%pos;
+        tid = matches[pos].id;
+        tname = matches[pos].name;
+        tpercent = matches[pos].percent_match;
+        console.log(tid)
+        console.log(tname)
+        console.log(tpercent)
         document.getElementById("submit").style.display = "block";
     
     let rows = matches.map((row) =>
