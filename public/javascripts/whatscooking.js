@@ -105,11 +105,7 @@ function success() {
                 <h3>{matches[pos+3].name}<span>{matches[pos+3].percent_match}%</span></h3>
                 <a className="gotofood" href={"recipe_profile?recipe=" + matches[pos+3].id}>Let's Cook!</a>
             </div> 	
-<<<<<<< HEAD
             
-=======
-            <button className="button" type="button" id="submit" onClick="next()">More</button>
->>>>>>> d79d6e536b98498403246e2d421cfbedd2640aba
         </div>
            {/* ------------------------------------------------------------- */}
            
