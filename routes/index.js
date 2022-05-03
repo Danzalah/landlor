@@ -61,4 +61,11 @@ router.get('/recipes', function (req, res, next) {
   res.sendFile(path.join(__dirname, '..', 'public', 'recipes.html'));
 });
 
+router.get('/swapsOut', function(req, res, next) {
+  client.query("SELECT * FROM swaps", function(err, result){
+    if (err) {next(err);}
+    res.json(result.rows);
+  });
+});
+
 module.exports = router;

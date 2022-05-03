@@ -67,10 +67,13 @@ router.post('/profile', function (req, res, next) {
       }
       var nextid = parseInt(result.rows[0].count) + 1;
 
-      var portions = req.body.portion.split(',');
-      var ingredients = req.body.ingredients.split(',');
+      var portions = String(req.body.portion).split(',');
+      portions = portions.filter(item => item);   // remove empty/false values
+      var ingredients = String(req.body.ingredients).split(',');
+      ingredients = ingredients.filter(item => item);
       var images = req.body.images.split(',');
-      var instructions = req.body.instructions.split(',');
+      var instructions = String(req.body.instructions).split(',');
+      instructions = instructions.filter(item => item);
       var totaltime = String(parseInt(req.body.cooktime) + parseInt(req.body.preptime)) + "M";
       var cooktime = req.body.cooktime + "M";
       var preptime = req.body.preptime + "M";
@@ -81,6 +84,8 @@ router.post('/profile', function (req, res, next) {
         month = "0" + (d.getMonth() + 1)
       }
       var date = d.getFullYear() + "-" + month + "-" + d.getDate();
+      console.log(req.body)
+      console.log(instructions)
 
       // TODO:: sum up cook time and prep time for total time
       client.query('INSERT INTO recipes(id, name, author, cook_time, prep_time, total_time, date_published, description, images, ing_portion, ingredients, rating, rating_count, servings, instructions) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15)',

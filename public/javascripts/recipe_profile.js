@@ -1,15 +1,21 @@
 let xhttp = new XMLHttpRequest();
-
 xhttp.addEventListener("load", success);
 xhttp.addEventListener("error", error);
 xhttp.open("GET", "/recipesOut", true);
 xhttp.send();
+
+let swaps_request = new XMLHttpRequest();
+swaps_request.addEventListener("load", success);
+swaps_request.addEventListener("error", error);
+swaps_request.open("GET", "/swapsOut", true);
+swaps_request.send();
 
 
 
 function success() {
 
     let data = JSON.parse(xhttp.response);
+    let ingr_swaps = JSON.parse(swaps_request.response)
 
     // https://flaviocopes.com/urlsearchparams/ how to get queries from url
     let params = new URLSearchParams(window.location.search)
@@ -26,13 +32,28 @@ function success() {
     }
 
     var ingredients = []
-    for (const [i, instruct] of recipe.ingredients.entries()) {
-        ingredients.push(<li>{instruct}</li>)
+    for (const [i, ingr] of recipe.ingredients.entries()) {
+        ingredients.push(ingr)
+    }
+
+    var swaps = [];
+    for (const [j, ingr] of ingredients.entries()) {
+        var swap_str = "";
+        for (const [i, swap] of ingr_swaps.entries()) {
+            if (ingr.toLowerCase() == swap.ingredient.toLowerCase()){
+                swap_str += "[*] " + swap.swaps + "\n";
+            };
+        }
+        var obj = {
+            ingredient: ingr,
+            swaps: swap_str
+        };
+        swaps.push(<li><a title={obj.swaps}>{obj.ingredient}</a></li>);
     }
 
     var portions = []
-    for (const [i, instruct] of recipe.ing_portion.entries()) {
-        portions.push(<li>{instruct}</li>)
+    for (const [i, portion] of recipe.ing_portion.entries()) {
+        portions.push(<li>{portion}</li>)
     }
 
     var date = recipe.date_published.substring(0, 10)
@@ -51,7 +72,7 @@ function success() {
 
                 <div className="ingredients">
                     <h3>Ingredients</h3>
-                    <ol>{ingredients}</ol>
+                    <ol>{swaps}</ol>
                 </div>
 
                 <div className="portions">
