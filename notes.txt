@@ -11,3 +11,6 @@ ALTER TABLE users ADD COLUMN recipes int[];
 
 
 CREATE TABLE users ("id" serial primary key, username text, password text, fullname text, prefer text, recipes int[]);
+
+CREATE TABLE swaps ("id" serial primary key, ingredient text, swaps text);
+\COPY swaps FROM 'ingredient_swaps2.csv' WITH (FORMAT csv);

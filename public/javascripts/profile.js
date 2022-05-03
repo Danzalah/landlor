@@ -11,14 +11,20 @@ recipe_request.open("GET", "/recipesOut", true);
 recipe_request.send();
 
 var portion_ingr_counter = 0;
+var instruction_counter = 0;
 
 function success() {
 
     let info = JSON.parse(profile_request.response);
     let recipes = JSON.parse(recipe_request.response);
+    // console.log(recipes[1])
 
     var user_recipes = [];
     for (const [i, id] of info.recipes.entries()) {
+        
+        if (i == info.recipes.length -1){
+            break;
+        }
         var temp = {
             id: recipes[id].id,
             name: recipes[id].name,
@@ -28,7 +34,6 @@ function success() {
         };
         user_recipes.push(temp);
     };
-    // console.log(user_recipes)
 
     let rows = user_recipes.map((row) =>
         <tr key={JSON.stringify(row)}>
@@ -76,7 +81,11 @@ function success() {
                             <button id="btn" type="button" onClick={AddIngredient}>Add Ingredient</button>
                         </div>
                         <div>
-                            <input type="text" name="instructions" defaultValue="Instructions" />
+                            <div id="instructions">
+                                <label id="label">Instruction: </label>
+                                <input type="text" id="instruction-0" name="instructions" defaultValue="Instructions" />
+                            </div>
+                            <button id="instruct_btn" type="button" onClick={AddInstructions}>Add Instruction</button>
                         </div>
                         <div>
                             <input type="text" name="images" defaultValue="images" />
@@ -112,6 +121,26 @@ function success() {
 
 };
 
+function AddInstructions() {
+    var instruction_div = document.getElementById("instructions");
+    instruction_counter++;
+    
+    var br = document.createElement("br");
+    instruction_div.appendChild(br);
+
+    var instruction_label = document.createElement("label");
+    instruction_label.id = "label";
+    instruction_label.innerHTML = "Instruction: ";
+    instruction_div.appendChild(instruction_label)
+
+    var instruction_input = document.createElement("input");
+    instruction_input.id = 'instruction-' + instruction_counter;
+    instruction_input.type = 'text';
+    instruction_input.name = 'instructions';
+    instruction_input.placeholder = 'instruction ' + instruction_counter;
+    instruction_div.appendChild(instruction_input)
+}
+
 function AddIngredient() {
     var port_ingr = document.getElementById('portion_ingr');
     portion_ingr_counter++;
@@ -142,9 +171,6 @@ function AddIngredient() {
     ingr_input.name = 'ingredients';
     ingr_input.placeholder = 'Ingredient ' + portion_ingr_counter;
     port_ingr.appendChild(ingr_input);
-
-
-    
 
 }
 
