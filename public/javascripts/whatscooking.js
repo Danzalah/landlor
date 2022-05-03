@@ -56,8 +56,6 @@ function success() {
         }
 
         //TODO:: something wrong with matches, does not redirect to correct recipes
-        // console.log(matches)
-        pos = matches.length%pos;
         document.getElementById("submit").style.display = "block";
     
     let rows = matches.map((row) =>
