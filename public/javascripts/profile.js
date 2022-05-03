@@ -17,9 +17,14 @@ function success() {
 
     let info = JSON.parse(profile_request.response);
     let recipes = JSON.parse(recipe_request.response);
+    // console.log(recipes[1])
 
     var user_recipes = [];
     for (const [i, id] of info.recipes.entries()) {
+        
+        if (i == info.recipes.length -1){
+            break;
+        }
         var temp = {
             id: recipes[id].id,
             name: recipes[id].name,

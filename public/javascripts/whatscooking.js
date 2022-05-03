@@ -79,26 +79,26 @@ function success() {
             </ul>
             </form>
            {/* ---------------------------------------------- */}
-           <div id="food-table" class="clear">
+           <div id="food-table" className="clear">
             <h2>Match Percentage</h2>
             <br></br>
-            <div class="food">
+            <div className="food">
                 <h3>{matches[pos].name}<span>{matches[pos].percent_match}%</span></h3>
-                <a class="gotofood" href={"recipe_profile?recipe=" + matches[pos].id}>Let's Cook!</a>         
+                <a className="gotofood" href={"recipe_profile?recipe=" + matches[pos].id}>Let's Cook!</a>         
             </div>
-            <div class="food" id="most-popular">
+            <div className="food" id="most-popular">
                 <h3>{matches[pos+1].name}<span>{matches[pos+1].percent_match}%</span></h3>
-                <a class="gotofood" href={"recipe_profile?recipe=" + matches[pos+1].id}>Let's Cook!</a> 
+                <a className="gotofood" href={"recipe_profile?recipe=" + matches[pos+1].id}>Let's Cook!</a> 
             </div>
-            <div class="food">
+            <div className="food">
                 <h3>{matches[pos+2].name}<span>{matches[pos+2].percent_match}%</span></h3>
-                <a class="gotofood" href={"recipe_profile?recipe=" + matches[pos+2].id}>Let's Cook!</a>
+                <a className="gotofood" href={"recipe_profile?recipe=" + matches[pos+2].id}>Let's Cook!</a>
             </div>
-            <div class="food">
+            <div className="food">
                 <h3>{matches[pos+3].name}<span>{matches[pos+3].percent_match}%</span></h3>
-                <a class="gotofood" href={"recipe_profile?recipe=" + matches[pos+3].id}>Let's Cook!</a>
+                <a className="gotofood" href={"recipe_profile?recipe=" + matches[pos+3].id}>Let's Cook!</a>
             </div> 	
-            <button className="button" type="button" id="submit" onclick="next()">More</button>
+            <button className="button" type="button" id="submit" onClick="next()">More</button>
         </div>
            {/* ------------------------------------------------------------- */}
            
