@@ -28,7 +28,7 @@ function success() {
     // https://dev.to/duomly/how-to-use-loop-in-react-js-ael
     var instructions = []
     for (const [i, instruct] of recipe.instructions.entries()) {
-        instructions.push(<li>{instruct}</li>)
+        instructions.push(<li key={i.toString()}>{instruct}</li>)
     }
 
     var ingredients = []
@@ -48,12 +48,12 @@ function success() {
             ingredient: ingr,
             swaps: swap_str
         };
-        swaps.push(<li><a title={obj.swaps}>{obj.ingredient}</a></li>);
+        swaps.push(<li key={j.toString()}><a title={obj.swaps}>{obj.ingredient}</a></li>);
     }
 
     var portions = []
     for (const [i, portion] of recipe.ing_portion.entries()) {
-        portions.push(<li>{portion}</li>)
+        portions.push(<li key={i.toString()}>{portion}</li>)
     }
 
     var date = recipe.date_published.substring(0, 10)
