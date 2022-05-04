@@ -33,9 +33,11 @@
     }
 
     #about-body {
-    padding: 20px 75px 30px 75px;
-    background-color: rgba(255, 255, 255, 0.7);
-}
+      width: 1000px;
+      margin: auto;
+      padding: 20px 75px 30px 75px;
+      background-color: rgba(255, 255, 255, 0.7);
+    }
 
     *,
     *:before,
@@ -56,7 +58,13 @@
     }
 
     .allabout {
-      padding-left: 400;
+      width: 800px;
+    }
+
+    .row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .about-section {
@@ -126,6 +134,7 @@
         alternative ingredients</p>
       <p>Whats cooking is more than just a service its an idea to revolutionize your taste buds!</p>
     </div>
+
     <h2 style="text-align:center">Our Team</h2>
     <div class="allabout">
 
@@ -146,10 +155,6 @@
           </div>
         </div>
 
-        <!-- <div class="column">
-      
-    </div> -->
-
         <div class="column">
           <div class="card">
             <img
@@ -165,7 +170,8 @@
         </div>
       </div>
     </div>
-    <button className="button" type="button" id="submit" onclick="next" style="display: none;margin-left: 670;">More</button>
+    <button className="button" type="button" id="submit" onclick="next"
+      style="display: none;margin-left: 670;">More</button>
   </div>
   <!-- not sure why whatscooking.js is needed for header -->
   <!-- <script src="./javascripts/whatscooking.js" type="text/babel"></script> -->

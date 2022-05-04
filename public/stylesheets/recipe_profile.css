@@ -11,9 +11,13 @@ p {
     /* padding: 0px 100px 0px 100px; */
 }
 
-@media (max-width:1300px){
+#swaps {
+    color: crimson;
+}
 
-    #profile{
+@media (max-width:1300px) {
+
+    #profile {
         padding: 0px calc(100vw - 1000px) 0px calc(100vw - 1000px);
     }
 }
@@ -32,7 +36,7 @@ p {
         "instructions instructions instructions instructions image"
         /* "instructions instructions instructions instructions null"
         "instructions instructions instructions instructions null" */
-        ;
+    ;
 }
 
 .ingredients {
@@ -79,7 +83,9 @@ p {
     max-height: auto;
 }
 
-.details, .description, .image {
+.details,
+.description,
+.image {
     max-width: 400px;
 }
 

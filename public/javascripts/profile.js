@@ -19,29 +19,41 @@ function success() {
     let recipes = JSON.parse(recipe_request.response);
     // console.log(recipes[1])
 
-    var user_recipes = [];
-    for (const [i, id] of info.recipes.entries()) {
-        
-        if (i == info.recipes.length -1){
-            break;
-        }
-        var temp = {
-            id: recipes[id].id,
-            name: recipes[id].name,
-            date: recipes[id].date_published.substring(0, 10),
-            rating: recipes[id].rating
 
+    var rows;
+
+    if (info.recipes == null) {
+        rows = (
+            <tr>
+                <td>Post your first recipe above!</td>
+            </tr>
+        );
+    }
+    else {
+
+        var user_recipes = [];
+        for (const [i, id] of info.recipes.entries()) {
+
+            var temp = {
+                id: recipes[id - 1].id,
+                name: recipes[id - 1].name,
+                date: recipes[id - 1].date_published.substring(0, 10),
+                rating: recipes[id - 1].rating
+
+            };
+            user_recipes.push(temp);
         };
-        user_recipes.push(temp);
+
+        rows = user_recipes.map((row) =>
+            <tr key={JSON.stringify(row)}>
+                <td><a href={"../recipes/recipe_profile?recipe=" + row.id}>{row.name}</a></td>
+                <td>{row.date}</td>
+                <td>{row.rating}</td>
+            </tr>
+        );
+
     };
 
-    let rows = user_recipes.map((row) =>
-        <tr key={JSON.stringify(row)}>
-            <td><a href={"../recipes/recipe_profile?recipe=" + row.id}>{row.name}</a></td>
-            <td>{row.date}</td>
-            <td>{row.rating}</td>
-        </tr>
-    );
 
     var num = [];
     for (var i = 1; i <= 24; i++) {
@@ -55,11 +67,13 @@ function success() {
                 <div className="post">
                     <h2>Post a Recipe</h2>
                     <form action="profile" method="post" id="submit_post">
-                        <div>
+                        <div id="form-div">
+                            <label id="label">Title: </label>
                             <input type="text" name="title" defaultValue="Title" /> <br />
+                            <label id="label">Description: </label>
                             <input type="text" name="description" defaultValue="Description" />
                         </div>
-                        <div>
+                        <div id="form-div">
                             <label id="label">Prep Time: </label>
                             <input type="number" id="time" step="5" name="cooktime" min="0" max="240" defaultValue="0" />
                             <label id="label">Cook Time: </label>
@@ -71,7 +85,7 @@ function success() {
                                 {num}
                             </select>
                         </div>
-                        <div>
+                        <div id="form-div">
                             <div id="portion_ingr">
                                 <label id="label">Portion: </label>
                                 <input type="text" id="portion-0" name="portion" defaultValue="Portion" />
@@ -80,17 +94,18 @@ function success() {
                             </div>
                             <button id="btn" type="button" onClick={AddIngredient}>Add Ingredient</button>
                         </div>
-                        <div>
+                        <div id="form-div">
                             <div id="instructions">
                                 <label id="label">Instruction: </label>
                                 <input type="text" id="instruction-0" name="instructions" defaultValue="Instructions" />
-                            </div>
+                            </div>  
                             <button id="instruct_btn" type="button" onClick={AddInstructions}>Add Instruction</button>
                         </div>
-                        <div>
-                            <input type="text" name="images" defaultValue="images" />
+                        <div id="form-div">
+                            <label id="label">Images: </label>
+                            <input type="text" id="images" name="images" defaultValue="images" />
                         </div>
-                        <input type="submit" value="Submit" />
+                        <input type="submit" id="submit-button" value="Submit" />
                     </form>
                 </div>
 
@@ -124,7 +139,7 @@ function success() {
 function AddInstructions() {
     var instruction_div = document.getElementById("instructions");
     instruction_counter++;
-    
+
     var br = document.createElement("br");
     instruction_div.appendChild(br);
 

@@ -40,7 +40,7 @@ function success() {
     for (const [j, ingr] of ingredients.entries()) {
         var swap_str = "";
         for (const [i, swap] of ingr_swaps.entries()) {
-            if (ingr.toLowerCase() == swap.ingredient.toLowerCase()){
+            if (ingr.toLowerCase() == swap.ingredient.toLowerCase()) {
                 swap_str += "[*] " + swap.swaps + "\n";
             };
         }
@@ -48,7 +48,13 @@ function success() {
             ingredient: ingr,
             swaps: swap_str
         };
-        swaps.push(<li key={j.toString()}><a title={obj.swaps}>{obj.ingredient}</a></li>);
+        if (swap_str == "") {
+            swaps.push(<li key={j.toString()}><a title={obj.swaps}>{obj.ingredient}</a></li>);
+        }
+        else {
+            swaps.push(<li key={j.toString()}><a id="swaps" title={obj.swaps}>{obj.ingredient}</a></li>);
+
+        }
     }
 
     var portions = []

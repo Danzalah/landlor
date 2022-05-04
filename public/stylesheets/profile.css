@@ -1,10 +1,30 @@
 #profile {
     padding: 20px 75px 30px 75px;
+    width: 1000px;
+    margin: auto;
     background-color: rgba(255, 255, 255, 0.7);
 }
 
 h2 {
     text-align: center;
+}
+
+#submit_post{
+    width: 100%;
+    padding: 12px 20px 20px 20px;
+    /* margin: 8px 0; */
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+#submit_post > * , #form-div > *{
+    margin-top: 5px;
+}
+
+#submit_post:last-child{
+    padding: 0px 0px 0px 0px;
 }
 
 #recipes {
@@ -17,11 +37,23 @@ h2 {
 }
 
 #label {
+    width: 15%;
     padding-left: 15px;
     padding-right: 15px;
 }
 
+[id^="instruction-"], #images{
+    /* select attributes starting with
+        https://www.w3schools.com/cssref/sel_attr_begin.asp */
+    width: 80%;
+}
+
+button, input[type=submit] {
+    position: relative;
+    margin: 0;
+    left: calc(50% - 60px);
+}
+
 #time {
     width: 75px;
-
 }
