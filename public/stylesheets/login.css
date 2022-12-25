@@ -1,8 +1,8 @@
 main {
-    left: 300pt;
+    left: 0pt;
     position: relative;
     height: 100%;
-    width: 50%;
+    width: 100%;
     display: -ms-flexbox;
     display: flex;
     -ms-flex-align: center;

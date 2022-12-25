@@ -107,6 +107,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/recipes', recipeRouter);   // use recipe route
+// app.use('/tennants',)
 // app.use('/whatscooking', whatscookingRouter);
 
 module.exports = app;

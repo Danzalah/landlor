@@ -1,195 +1,95 @@
+// const e = require("express");
+
 let profile_request = new XMLHttpRequest();
 profile_request.addEventListener("load", success);
 profile_request.addEventListener("error", error);
 profile_request.open("GET", "/usersLog", true);
 profile_request.send();
 
-let recipe_request = new XMLHttpRequest();
-recipe_request.addEventListener("load", success);
-recipe_request.addEventListener("error", error);
-recipe_request.open("GET", "/recipesOut", true);
-recipe_request.send();
-
-var portion_ingr_counter = 0;
-var instruction_counter = 0;
+let tennant_request = new XMLHttpRequest();
+tennant_request.addEventListener("load", success);
+tennant_request.addEventListener("error", error);
+tennant_request.open("GET", "/tennantList", true);
+tennant_request.send();
 
 function success() {
+    var parse = JSON.parse(tennant_request.response);
 
-    let info = JSON.parse(profile_request.response);
-    let recipes = JSON.parse(recipe_request.response);
-    // console.log(recipes[1])
+    // let checkLoggedIn = JSON.parse(profile_request.response);
 
-
-    var rows;
-
-    if (info.recipes == null) {
-        rows = (
-            <tr>
-                <td>Post your first recipe above!</td>
-            </tr>
-        );
+    var names = [];
+    
+    for(var i=0;i<parse.length && i<5;i++){
+        if(parse[i].name != null && parse[i].name != "" ){
+            names.push([parse[i].name,parse[i].rent_due_date,parse[i].rent_cost,parse[i].tennant_id]);
+        }
+        else{
+            names.push(["No upcoming payments","","",""])
+        }
+        
     }
-    else {
+    //https://stackoverflow.com/questions/1531093/how-do-i-get-the-current-date-in-javascript
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, '0');
+    var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    var yyyy = today.getFullYear();
 
-        var user_recipes = [];
-        for (const [i, id] of info.recipes.entries()) {
+    today = mm + '/' + dd + '/' + yyyy;
 
-            var temp = {
-                id: recipes[id - 1].id,
-                name: recipes[id - 1].name,
-                date: recipes[id - 1].date_published.substring(0, 10),
-                rating: recipes[id - 1].rating
-
-            };
-            user_recipes.push(temp);
-        };
-
-        rows = user_recipes.map((row) =>
-            <tr key={JSON.stringify(row)}>
-                <td><a href={"../recipes/recipe_profile?recipe=" + row.id}>{row.name}</a></td>
-                <td>{row.date}</td>
-                <td>{row.rating}</td>
-            </tr>
-        );
-
-    };
-
-
-    var num = [];
-    for (var i = 1; i <= 24; i++) {
-        num.push(<option key={i} value={i}>{i}</option>);
-    };
-
-    let element = (
-        <div className="grid-block">
-            <h1>Welcome, {info.user}!</h1>
-            <div className="grid-container">
-                <div className="post">
-                    <h2>Post a Recipe</h2>
-                    <form action="profile" method="post" id="submit_post">
-                        <div id="form-div">
-                            <label id="label">Title: </label>
-                            <input type="text" name="title" defaultValue="Title" /> <br />
-                            <label id="label">Description: </label>
-                            <input type="text" name="description" defaultValue="Description" />
-                        </div>
-                        <div id="form-div">
-                            <label id="label">Prep Time: </label>
-                            <input type="number" id="time" step="5" name="cooktime" min="0" max="240" defaultValue="0" />
-                            <label id="label">Cook Time: </label>
-                            <input type="number" id="time" step="5" name="preptime" min="0" max="240" defaultValue="0" />
-                            <label id="label">Number of Servings: </label>
-                            <select name="servings" id="servings" >
-                                {/* {dynamically create select element:
-                                    https://stackoverflow.com/questions/36205673/how-do-i-create-a-dynamic-drop-down-list-with-react-bootstrap} */}
-                                {num}
-                            </select>
-                        </div>
-                        <div id="form-div">
-                            <div id="portion_ingr">
-                                <label id="label">Portion: </label>
-                                <input type="text" id="portion-0" name="portion" defaultValue="Portion" />
-                                <label id="label">Ingredient: </label>
-                                <input type="text" id="ingredient-0" name="ingredients" defaultValue="Ingredients" />
-                            </div>
-                            <button id="btn" type="button" onClick={AddIngredient}>Add Ingredient</button>
-                        </div>
-                        <div id="form-div">
-                            <div id="instructions">
-                                <label id="label">Instruction: </label>
-                                <input type="text" id="instruction-0" name="instructions" defaultValue="Instructions" />
-                            </div>  
-                            <button id="instruct_btn" type="button" onClick={AddInstructions}>Add Instruction</button>
-                        </div>
-                        <div id="form-div">
-                            <label id="label">Images: </label>
-                            <input type="text" id="images" name="images" defaultValue="images" />
-                        </div>
-                        <input type="submit" id="submit-button" value="Submit" />
-                    </form>
-                </div>
-
-                <div className="recipes">
-                    <h2>Recipes by You!</h2>
-                    <table id="recipes" border="2" cellSpacing="1" cellPadding="8" className="recipeTable">
-                        <thead>
-                            <tr>
-                                <th id="thName">Name</th>
-                                <th id="thDate">Date Publshed</th>
-                                <th id="thRating">Rating</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {rows}
-                        </tbody>
-                    </table>
-                </div>
-
-            </div>
+    const tchildren = names.map((val) => (
+      <div class="event_item">
+        <div class="ei_Dot"></div>
+          <div class="ei_Title"><a  class = "no_line" href= {"tennants?tennant_id="+val[3]}>{val[0]}</a>&emsp;&emsp;<a class = "no_line" href={"javascript: paid("+val[3]+")"}><button class="button-5" id="paidRent" role="button">Paid </button></a></div>
+          <div class="ei_Copy">Rent of {val[2]} due on {val[1].slice(0,10)}</div>
         </div>
+    ));
+    
+    let elementInfo = (
+        <div class="calendar light">
+      <div class="calendar_header">
+        <h1 class = "header_title">Welcome Back</h1>
+        <p class="header_copy"> Calendar Plan</p>
+      </div>
+      <div class="calendar_plan">
+        <div class="cl_plan">
+          <div class="cl_title">Today</div>
+          <div class="cl_copy">{today}</div>
+          <div class="cl_add">
+          </div>
+        </div>
+      </div>
+      <div class="calendar_events">
+        <p class="ce_title">Upcoming Payments</p>
+        {tchildren}
+      </div>
+    </div>
+
     );
-
+    
     ReactDOM.render(
-        element,
-        document.getElementById('profile')
-    )
-
+        elementInfo,
+        document.getElementById('container')
+    );
+ 
 };
 
-function AddInstructions() {
-    var instruction_div = document.getElementById("instructions");
-    instruction_counter++;
-
-    var br = document.createElement("br");
-    instruction_div.appendChild(br);
-
-    var instruction_label = document.createElement("label");
-    instruction_label.id = "label";
-    instruction_label.innerHTML = "Instruction: ";
-    instruction_div.appendChild(instruction_label)
-
-    var instruction_input = document.createElement("input");
-    instruction_input.id = 'instruction-' + instruction_counter;
-    instruction_input.type = 'text';
-    instruction_input.name = 'instructions';
-    instruction_input.placeholder = 'instruction ' + instruction_counter;
-    instruction_div.appendChild(instruction_input)
-}
-
-function AddIngredient() {
-    var port_ingr = document.getElementById('portion_ingr');
-    portion_ingr_counter++;
-
-    var br = document.createElement("br");
-    port_ingr.appendChild(br);
-
-    var portion_label = document.createElement("label");
-    portion_label.id = "label";
-    portion_label.innerHTML = "Portion: "
-    port_ingr.appendChild(portion_label)
-
-    var portion_input = document.createElement("input");
-    portion_input.id = 'portion-' + portion_ingr_counter;
-    portion_input.type = 'text';
-    portion_input.name = 'portion';
-    portion_input.placeholder = 'portion ' + portion_ingr_counter;
-    port_ingr.appendChild(portion_input);
-
-    var ingr_label = document.createElement("label");
-    ingr_label.id = "label"
-    ingr_label.innerHTML = "Ingredient: "
-    port_ingr.appendChild(ingr_label)
-
-    var ingr_input = document.createElement("input");
-    ingr_input.id = 'ingredient-' + portion_ingr_counter;
-    ingr_input.type = 'text';
-    ingr_input.name = 'ingredients';
-    ingr_input.placeholder = 'Ingredient ' + portion_ingr_counter;
-    port_ingr.appendChild(ingr_input);
-
+function paid(id){
+  console.log("Paid " + id);
+  let element = (
+    <div>
+    <form action="updatePaid" id="form" method="post">
+    <input type="hidden" id="tennantId" name="tennantId" value={id}></input>
+    </form>
+    </div>
+    );
+  ReactDOM.render(
+    element,
+    document.getElementById('message')
+);
+  document.forms["form"].submit();
 }
 
 function error() {
-    console.log(xhttp.readyState);
-    console.log(xhttp.status);
+    console.log(tennant_request.readyState);
+    console.log(tennant_request.status);
 };

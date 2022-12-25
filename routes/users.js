@@ -24,6 +24,7 @@ client.connect(); //connect to database
 
 var passport = require('passport');
 var bcrypt = require('bcryptjs');
+const { Console } = require('console');
 
 router.get('/logout', function (req, res) {
   req.logout(); //passport provide it
@@ -44,75 +45,154 @@ function loggedIn(req, res, next) {
   }
 }
 
+
 router.get('/profile', loggedIn, function (req, res) {
   // req.user: passport middleware adds "user" object to HTTP req object
   res.sendFile(path.join(__dirname, '..', 'public', 'profile.html'));
 });
-
-router.post('/profile', function (req, res, next) {
-  // console.log(req.body)
-  // console.log(req.user)
-
-  if (!req.body.title || !req.body.description || !req.body.portion || !req.body.instructions || !req.body.images ||
-    !req.body.preptime || !req.body.cooktime || !req.body.servings || !req.body.ingredients) {
-    res.redirect('/users/profile?name=' + req.user.username + "&message=fill+all+empty+fields");
-    console.log("there are empty");
-  }
-  else {
-
-    client.query('SELECT count(*) FROM recipes', [], function (err, result) {
-      if (err) {
-        console.log("error counting recipe")
-        next(err)
-      }
-      var nextid = parseInt(result.rows[0].count) + 1;
-
-      var portions = String(req.body.portion).split(',');
-      portions = portions.filter(item => item);   // remove empty/false values
-      var ingredients = String(req.body.ingredients).split(',');
-      ingredients = ingredients.filter(item => item);
-      var images = req.body.images.split(',');
-      var instructions = String(req.body.instructions).split(',');
-      instructions = instructions.filter(item => item);
-      var totaltime = String(parseInt(req.body.cooktime) + parseInt(req.body.preptime)) + "M";
-      var cooktime = req.body.cooktime + "M";
-      var preptime = req.body.preptime + "M";
-
-      const d = new Date();
-      var month = d.getMonth() + 1;
-      if ((d.getMonth() + 1) < 10) {
-        month = "0" + (d.getMonth() + 1)
-      }
-      var date = d.getFullYear() + "-" + month + "-" + d.getDate();
-      console.log(req.body)
-      console.log(instructions)
-
-      // TODO:: sum up cook time and prep time for total time
-      client.query('INSERT INTO recipes(id, name, author, cook_time, prep_time, total_time, date_published, description, images, ing_portion, ingredients, rating, rating_count, servings, instructions) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15)',
-        [nextid, req.body.title, req.user.username, cooktime, preptime, totaltime, date, req.body.description, images, portions, ingredients, 0, 0, 0, instructions], function (err, result) {
-          if (err) {
-            console.log("error posting recipe")
-            next(err)
-          }
-          console.log("insert into recipes successful for id:", nextid)
-
-          client.query('UPDATE users SET recipes = array_append(recipes, $1) WHERE id=$2', [nextid, req.user.id], function(err, result) {
+router.post('/edit', loggedIn, function (req, res) {
+  // req.user: passport middleware adds "user" object to HTTP req object
+          client.query('UPDATE tennants SET name = $2, phoneNumber = $3, rent_due_date=$4, rent_cost=$5, payCycle=$6, roomNumber=$7 WHERE tennant_id=$1', [req.body.Id,req.body.tname, req.body.phone,req.body.due,req.body.cost,req.body.paycycle,req.body.roomnumber], function(err, result) {
             if (err) {
-              console.log("error updating users recipes array");
+              console.log("error updating tennants");
               next(err);
             };
 
         }); // end of insert query
+        res.redirect('/users/tennants?tennant_id=' + req.body.Id);
+});
+
+router.post('/deleteProfile', loggedIn, function (req, res) {
+  // req.user: passport middleware adds "user" object to HTTP req object
+          client.query('DELETE FROM TENNANTS WHERE tennant_id=$1', [req.body.tennantId], function(err, result) {
+            if (err) {
+              console.log("error deleting from tennants");
+              next(err);
+            };
+
+        }); // end of insert query
+        // console.log(req.user.username);
+        client.query('SELECT * FROM USERS WHERE USERNAME LIKE $1',[req.user.username], function(err, result) {
+          if (err) {
+            console.log("error deleting from tennants");
+            next(err);
+          };
+
+          // console.log(result.rows[0].id);
+          client.query('SELECT COUNT(*) FROM TENNANTS INNER JOIN BUILDING ON TENNANTS.BUILDING_ID=BUILDING.BUILDING_ID WHERE BUILDING.OWNER_ID = $1',[result.rows[0].id], function(err, result) {
+            if (err) {
+              console.log("error deleting from tennants");
+              next(err);
+            };
+            if(result.rows[0].count == 0 ){
+              // ---------------------
+              client.query('SELECT * FROM USERS WHERE USERNAME LIKE $1',[req.user.username], function(err, result) {
+                if (err) {
+                  console.log("error selecting from tennats");
+                  next(err);
+                };
+                
+                client.query("SELECT * FROM BUILDING WHERE OWNER_ID = $1", [result.rows[0].id], function(err, result) {
+                  if (err) {
+                    console.log("error updating tennants");
+                    next(err);
+                  };
+                  // console.log(result.rows[0].building_id);
+                        client.query('INSERT INTO tennants ( building_id,rent_cost,rent_due_date,name,phoneNumber,payCycle,roomNumber) VALUES($1,$2,$3,$4,$5,$6,$7)', [result.rows[0].building_id,"1000","2023-01-01","John Smith","9098765432",1,"room 2"], function (err, result) {
+                          if (err) {
+                            console.log("unable to query INSERT into tennants");
+                            return next(err); // throw error to error.hbs.
+                          }
+                    }); // end of insert query
+              }); // end of insert query
+            }); // end of insert query
+              // ---------------------
+              
+            }
+            // console.log(result.rows[0]);
+        }); // end of insert query
+      }); // end of insert query
+       
+        res.redirect('/users/profile?name=' + req.user.username);
+});
+
+router.post('/addTennant', loggedIn, function (req, res) {
+  // req.user: passport middleware adds "user" object to HTTP req object
+      // console.log(req.body)
+          client.query('INSERT INTO tennants (building_id, rent_cost, rent_due_date, name,phonenumber,paycycle,roomnumber) VALUES ($1,$2,$3,$4,$5,$6,$7)', [req.body.bId,req.body.cost,req.body.due,req.body.tname,req.body.phone,req.body.paycycle,req.body.roomnumber], function(err, result) {
+            if (err) {
+              console.log("error inserting into tennant");
+              next(err);
+            };
+            console.log("success");
+        }); // end of insert query
+        res.redirect('/users/buildings?building_id=' + req.body.buildingId);
+});
+
+router.post('/addNewBuilding', loggedIn, function (req, res) {
+  // req.user: passport middleware adds "user" object to HTTP req object
+
+          client.query('INSERT INTO BUILDING (owner_id, name, numberOfUnits) VALUES ($1,$2,$3)', [req.body.ownerId,req.body.bname,req.body.units], function(err, result) {
+            if (err) {
+              console.log("error inserting into building");
+              next(err);
+            };
+            console.log("success");
+        }); // end of insert query
+        res.redirect('/users/buildings?building_id=' + req.body.buildingId);
+});
+
+router.post('/updatePaid', loggedIn, function (req, res) {
+  // req.user: passport middleware adds "user" object to HTTP req object
+        // console.log(req.body);
+          client.query('SELECT * FROM TENNANTS WHERE TENNANT_ID = $1', [req.body.tennantId], function(err, result) {
+            if (err) {
+              console.log("error selecting from tennats");
+              next(err);
+            };
+            
+            client.query("UPDATE tennants SET rent_due_date=(CAST($3 as date) + $2 * interval '1 month') WHERE tennant_id=$1", [req.body.tennantId,result.rows[0].paycycle,result.rows[0].rent_due_date], function(err, result) {
+              // (CAST($3 as date) * INTERVAL concat($2,'month'))
+              if (err) {
+                console.log("error updating tennants");
+                next(err);
+              };
+  
+          }); // end of insert query
+        }); // end of insert query
+        res.redirect('/users/profile?name=' + req.user.username);
+});
+
+router.post('/updateBuilding', loggedIn, function (req, res) {
+  // req.user: passport middleware adds "user" object to HTTP req object
+        console.log(req.body);
+          client.query('UPDATE BUILDING SET owner_id=$1, name=$2, numberOfUnits=$3 WHERE building_id=$4', [req.body.ownerId,req.body.bname,req.body.units,req.body.buildingId], function(err, result) {
+            if (err) {
+              console.log("error inserting into building");
+              next(err);
+            };
+            console.log("success");
+        }); // end of insert query
+        res.redirect('/users/buildings?building_id=' + req.body.buildingId);
+});
+
+router.get('/tennants', loggedIn, function (req, res) {
+  // req.user: passport middleware adds "user" object to HTTP req object
+  res.sendFile(path.join(__dirname, '..', 'public', 'tennants.html'));
+});
+router.get('/buildings', loggedIn, function (req, res) {
+  // req.user: passport middleware adds "user" object to HTTP req object
+  res.sendFile(path.join(__dirname, '..', 'public', 'buildings.html'));
+});
+router.post('/profile', function (req, res, next) {
+
+  if (!req.user) {
+    res.redirect('/users/profile?name=' + req.user.username + "&message=fill+all+empty+fields");
+    console.log("there are empty");
+  }
 
 
-
-        console.log("inserted into user id:", req.user.id, ":", req.user.username, ", recipe list");
-      }); // end of update recipes array query
-
-    });// end of count query
-  }//end of else
-
-  res.redirect('/users/profile?name=' + req.user.username + "&message=post+recipe+success");
+  res.redirect('/users/profile?name=' + req.user.username + "&message=post+success");
 });
 
 function notLoggedIn(req, res, next) {
@@ -154,21 +234,57 @@ router.get('/signup', function (req, res) {
 function createUser(req, res, next) {
   var salt = bcrypt.genSaltSync(10);
   var password = bcrypt.hashSync(req.body.password, salt);
+  var num = "(999) 999-1234";
 
   client.query('INSERT INTO users (username, password, fullname, prefer) VALUES($1, $2, $3, $4)', [req.body.username, password, req.body.fullname, req.body.prefer], function (err, result) {
     if (err) {
-      console.log("unable to query INSERT");
+      console.log("unable to query INSERT to users");
       return next(err); // throw error to error.hbs.
     }
+    client.query('SELECT * FROM USERS WHERE username = $1', [req.body.username], function (err, result) {
+      if (err) {
+        console.log("unable to query select from users");
+        return next(err); // throw error to error.hbs.
+      }
+      // console.log(result.rows);
+      client.query('INSERT INTO realestate (owner_id, name,phoneNumber) VALUES($1,$2,$3)', [result.rows[0].id,req.body.fullname,num], function (err, result) {
+        if (err) {
+          console.log("unable to query INSERT into realestate");
+          return next(err); // throw error to error.hbs.
+        }
+      });
+      client.query('INSERT INTO building (owner_id,name,numberOfUnits) VALUES($1,$2,$3)', [result.rows[0].id,"Example Building",100], function (err, result) {
+        if (err) {
+          console.log("unable to query INSERT into building");
+          return next(err); // throw error to error.hbs.
+        }
+      });
+      client.query('SELECT * FROM building WHERE owner_id = $1',[result.rows[0].id], function (err, result) {
+        if (err) {
+          console.log("unable to query INSERT into building");
+          return next(err); // throw error to error.hbs.
+        }
+        client.query('INSERT INTO tennants ( building_id,rent_cost,rent_due_date,name,phoneNumber,payCycle,roomNumber) VALUES($1,$2,$3,$4,$5,$6,$7)', [result.rows[0].building_id,"1000","2023-01-01","John Smith","9098765432",1,"room 2"], function (err, result) {
+          if (err) {
+            console.log("unable to query INSERT into tennants");
+            return next(err); // throw error to error.hbs.
+          }
+        });
+      });
+    });
+    
+    
+    
     console.log("User creation is successful");
     res.redirect('/users/login?message=We+created+your+account+successfully!');
   });
+  
 }
 
 router.post('/signup', function (req, res, next) {
   client.query('SELECT * FROM users WHERE username=$1', [req.body.username], function (err, result) {
     if (err) {
-      console.log("sql error ");
+      console.log("sql error");
       next(err); // throw error to error.hbs.
     }
     else if (result.rows.length > 0) {

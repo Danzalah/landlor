@@ -26,32 +26,25 @@
 </head>
 
 <body>
+  <div id="header">
+    <!-- elemetn for header -->
+  </div>
+  <div>
+    <div id="container">
+      <!-- elemetn for header -->
+    </div>
+    <button class="button-85" id="saveProfile" role="button">Save </button>  <button class="button-85" id="deleteProfile" role="button" onclick="return confirm('Are you sure you want to delete this profile?')">Delete The Profile</button>
+    <button class="button-85" id="editProfile" role="button">Edit the profile </button>
+  </div>
+  
+  
+  
+  
   <!-- CSS and HTMLfor navigation found https://codepen.io/StheffaneNunes/pen/oNxzPxE -->
-  <img className="logo-header" src="../images/logo.png" width="360" />
-  <div class="navigation">
-    <input type="checkbox" class="navigation__checkbox" id="nav-toggle">
-    <label for="nav-toggle" class="navigation__button">
-      <span class="navigation__icon" aria-label="toggle navigation menu"></span>
-    </label>
-    <div class="navigation__background"></div>
-
-    <nav class="navigation__nav" role="navigation">
-      <ul class="navigation__list">
-        <li class="navigation__item">
-          <a href="/" class="navigation__link">Home</a>
-        </li>
-        <li class="navigation__item">
-          <a href="users/profile" class="navigation__link">Estates</a>
-        </li>
-        <li class="navigation__item">
-          <a href="https://www.linkedin.com/in/rayan-suberu-57040819b/" class="navigation__link">About the Developer</a>
-        </li>
-  </ul>
-</nav>
-<span id="by"></span>
-</div>
-
-<!-- <script src="./javascripts/index.js" type="text/babel"></script> -->
+<script src="./../javascripts/login.js" type="text/babel"></script>
+<script src="./../javascripts/tennants.js" type="text/babel"></script>
+<script src="./../javascripts/header.js" type="text/babel"></script>
+<!-- <script src="./../javascripts/tennants.js" type="text/babel"></script> -->
 </body>
 
 </html>

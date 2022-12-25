@@ -32,7 +32,10 @@ router.get('/recipe_profile', function (req, res, next) {
 router.get('/whatscooking', function (req, res, next) {
   res.sendFile(path.join(__dirname, '..', 'public', 'whatscooking.html'));
   console.log(req.user)
+
 });
+
+
 
 router.post('/whatscooking', function (req, res, next) {
   client.query('SELECT * FROM recipes', [], function (err, result) {
