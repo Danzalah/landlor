@@ -1,5 +1,5 @@
-# whatscooking
-By Huy Le and Rayan Shardow-Suberu
+# landlord
+By Rayan Shardow-Suberu
 
 Heroku Webpage \
 https://young-reaches-70729.herokuapp.com/
