@@ -1,4 +1,4 @@
 # landlord
-By Rayan Shardow-Suberu
+By Rayan Shardow-Suberu Huy Lee
 
 Heroku Webpage \
